@@ -1,0 +1,118 @@
+\documentclass{article}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1cm, a4paper, bottom=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb} %for \varnothing (empty set)
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{wasysym}
+
+\setlength{\parindent}{0pt}
+\author{Andrzej Gwiazda}
+\pagenumbering{gobble}
+
+\begin{document}
+
+\newpage
+\begin{minipage}{0.11\textwidth}
+\includegraphics[width=\textwidth]{logo.png}
+\end{minipage}
+\begin{minipage}{0.89\textwidth}
+\begin{tabularx}{\textwidth} { 
+  | >{\centering\arraybackslash}X | }
+ \hline
+ \textbf{KLUB ŻEGLARSKI UNIWERSYTETU WARSZAWSKIEGO} \\
+ \hline
+ \\
+ \textbf{\huge OPINIA Z REJSU} \\
+ \\
+\hline
+\end{tabularx}
+\end{minipage}
+
+\section*{INFORMACJE O UCZESTNIKU REJSU}
+\begin{tabularx}{\textwidth}{X X X}
+imię i nazwisko: \textit{...........................} & stop. żegl./mot.: \textit{...........................} & nr patentu: \textit{...........................} \\
+nr telefonu: \textit{...........................} & e-mail: \textit{...........................} & funkcja: \textit{...........................} \\
+\end{tabularx}
+
+\section*{INFORMACJE O JACHCIE}
+
+\begin{tabularx}{\textwidth}{X X X}
+nazwa jachtu: \textit{...........................} & klasa: \textit{...........................} & nr rej.: \textit{...........................} \\
+lc[m]: \textit{...........................} & port macierzysty: \textit{...........................} & moc silnika [kW]: \textit{...........................} \\
+\end{tabularx}
+
+\section*{INFORMACJE O REJSIE}
+
+Wpisu dokonano na podstawie dziennika jachtowego, nr pływania: \textit{...........................}
+\\
+
+\begin{tabularx}{\textwidth}{|X|X|X|}
+\hline
+Port zaokrętowania: \textit{} & Data: \textit{} & Pływowy: \textit{TAK/NIE} \\
+\hline
+Port wyokrętowania: \textit{} & Data: \textit{} & Pływowy: \textit{TAK/NIE} \\
+\hline
+\multicolumn{3}{|l|}{Odwiedzone miejsca:
+\dotfill} \\
+\multicolumn{3}{|l|}{\dotfill} \\
+\multicolumn{3}{|l|}{\dotfill} \\
+\multicolumn{3}{|l|}{\dotfill} \\
+
+\hline
+\multicolumn{2}{|l|}{W tym liczba portów pływowych: \textit{}} & Liczba dni rejsu: \textit{}\\
+\hline
+\end{tabularx}
+\\\\
+
+\begin{tabularx}{\textwidth}{
+|>{\centering\arraybackslash}X
+|>{\centering\arraybackslash}X
+|>{\centering\arraybackslash}X
+|>{\centering\arraybackslash}X
+|>{\centering\arraybackslash}X
+|>{\centering\arraybackslash}X
+|>{\centering\arraybackslash}X
+|}
+\hline
+\multicolumn{5}{|c|}{GODZINY ŻEGLUGI} & GODZINY POSTOJU & \multirow{2}{2cm}{PRZEBYTO MIL MORSKICH} \\
+\cline{1-6}
+pod żaglami & na silniku & \textbf{razem godz. żegl.} & po wodach pływowych & powyżej $6^\circ$B & w portach i na kotwicy & \\ 
+\hline
+& & & & & & \\
+\huge &\huge  &\huge  &\huge  &\huge  &\huge  &\huge  \\
+& & & & & & \\
+\hline
+\end{tabularx}
+
+\section*{OPINIA KAPITANA ~~~~~~~~ $\Box$ pozytywna ~~~~~~~~ $\Box$ negatywna}
+
+\begin{tabularx}{\textwidth}{X X X X}
+\multicolumn{4}{l}{\textbf{Z obowiązków wywiązywał/a się:}}\\
+$\Box$ bardzo dobrze & $\Box$ dobrze & $\Box$ dostatecznie & $\Box$ niedostatecznie\\
+\\
+\multicolumn{4}{l}{\textbf{Chorobie morskiej:}}\\
+$\Box$ nie podlegał/a & $\Box$ chorowała/a ciężko & \multicolumn{2}{l}{$\Box$ chorował/a sporadycznie i mógł/mogła pracować}\\
+\\
+\multicolumn{4}{l}{\textbf{Odporność w trudnych warunkach:}}\\
+$\Box$ dobra & $\Box$ dostateczna & $\Box$ niedostateczna & $\Box$ nie sprawdzono\\
+\end{tabularx}
+
+\section*{UWAGI KAPITANA}
+
+
+\textit{}\dotfill \\
+.\dotfill \\
+.\dotfill \\
+\section*{INFORMACJE O KAPITANIE}
+
+\begin{tabularx}{\textwidth}{X X}
+imię i nazwisko: \textit{...........................} & stop. żegl./mot. i nr patentu: \textit{...........................}\\
+nr telefonu: \textit{...........................} & e-mail: \textit{...........................}\\
+\\\\
+...................................... & ......................................\\
+miejscowość, data & podpis kapitana\\
+\end{tabularx}
+\end{document}
