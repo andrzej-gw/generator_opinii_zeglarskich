@@ -22,3 +22,5 @@ Dostarczam również plik makefile. Aby utworzyć plik "opinia.tex" i "opinia.pd
 Można również zrobić to ręcznie poleceniem "python3 opinia.py > opinia.tex; pdflatex opinia.tex".
 
 W przyszłości planowane jest dodanie języka angielskiego.
+
+W katalogu wzorce znajdują się puste opinie według różnych wzorów.
