@@ -58,7 +58,7 @@ class Opinia_kapitana:
         self.odpornosc_w_trudnych_warunkach=odpornosc_w_trudnych_warunkach
         self.uwagi=uwagi
 
-def naglowek():
+def wypisz_naglowek():
     print("""\\documentclass{article}
 \\usepackage{polski}
 \\usepackage[utf8]{inputenc}
@@ -76,7 +76,7 @@ def naglowek():
 \\begin{document}
 """)
 
-def opinia(zalogant=Zalogant(), jacht=Jacht(), rejs=Rejs(), opinia_kapitana=Opinia_kapitana(), kapitan=Kapitan(), logo=False, jezyk="pl"):
+def wypisz_opinie(zalogant=Zalogant(), jacht=Jacht(), rejs=Rejs(), opinia_kapitana=Opinia_kapitana(), kapitan=Kapitan(), logo=False, jezyk="pl"):
     def box(zaznaczone):
         if zaznaczone:
             return "\\XBox"
@@ -224,7 +224,7 @@ miejscowość, data & podpis kapitana\\\\
 \\end{tabularx}""")
 
 
-def karta_rejsu(jacht=Jacht(), rejs=Rejs(), uwagi_kapitana="", kapitan=Kapitan(), zaloga=[], armator=Osoba(), logo=False, jezyk="pl"):
+def wypisz_karte_rejsu(jacht=Jacht(), rejs=Rejs(), uwagi_kapitana="", kapitan=Kapitan(), zaloga=[], armator=Osoba(), logo=False, jezyk="pl"):
     if logo:
         print("""\\newpage
 \\begin{minipage}{0.11\\textwidth}
@@ -373,5 +373,5 @@ nr telefonu: \\textit{"""+str(armator.nr_telefonu)+"} & e-mail: \\textit{"+str(a
 miejscowość, data & podpis armatora jachtu\\\\
 \\end{tabularx}""")
     
-def stopka():
+def wypisz_stopke():
     print("\end{document}")

@@ -36,18 +36,18 @@ negatywna_opinia=Opinia_kapitana(pozytywna=1, wywiazywanie_z_obowiazkow=3, choro
 armator = Osoba(imie_i_nazwisko="Czarter jachtów", nr_telefonu="+54 345 322 654", adres_email="czarter@jachtow.pl")
 
 #naglowek potrzebny jest do rozpoczecia dokumentu w .tex (wywolac dokladnie raz na poczatku)
-naglowek()
+wypisz_naglowek()
 
-karta_rejsu(jacht=jacht, rejs=rejs, uwagi_kapitana="Super rejs.", kapitan=kapitan, zaloga=zaloga, armator=armator, logo=True)
+wypisz_karte_rejsu(jacht=jacht, rejs=rejs, uwagi_kapitana="Super rejs.", kapitan=kapitan, zaloga=zaloga, armator=armator, logo=True)
 
 for z in zaloga:
-    opinia(z, jacht=jacht, rejs=rejs, logo=True, opinia_kapitana=pozytywna_opinia, kapitan=kapitan)
+    wypisz_opinie(z, jacht=jacht, rejs=rejs, logo=True, opinia_kapitana=pozytywna_opinia, kapitan=kapitan)
 
-opinia(zaloga[0], jacht=jacht, rejs=rejs, logo=True, opinia_kapitana=pozytywna_opinia, kapitan=kapitan)
-opinia(zaloga[0], jacht=jacht, rejs=rejs, logo=False, opinia_kapitana=negatywna_opinia, kapitan=kapitan)
-opinia(zaloga[0], jacht=jacht, rejs=rejs, logo=True, kapitan=kapitan)
-opinia()
-karta_rejsu()
+wypisz_opinie(zaloga[0], jacht=jacht, rejs=rejs, logo=True, opinia_kapitana=pozytywna_opinia, kapitan=kapitan)
+wypisz_opinie(zaloga[0], jacht=jacht, rejs=rejs, logo=False, opinia_kapitana=negatywna_opinia, kapitan=kapitan)
+wypisz_opinie(zaloga[0], jacht=jacht, rejs=rejs, logo=True, kapitan=kapitan)
+wypisz_opinie()
+wypisz_karte_rejsu()
 
 #stopka potrzebna jest do zakonczenia dokumentu .tex (wywolac dokladnie raz na koncu)
-stopka()
+wypisz_stopke()
