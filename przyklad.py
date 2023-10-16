@@ -1,6 +1,6 @@
 """Moduł zwierający klasy i funkcje do generowania opinii."""
-from generator_opinii_zeglarskich import (Zalogant, Kapitan, Jacht, Rejs,
-Opinia_kapitana, Osoba, wypisz_karte_rejsu, wypisz_naglowek, wypisz_opinie, wypisz_stopke)
+from generator_opinii_zeglarskich import (Zalogant, Zeglarz, Jacht, Rejs,
+OpiniaKapitana, Osoba, wypisz_karte_rejsu, wypisz_naglowek, wypisz_opinie, wypisz_stopke)
 
 #dane zalogi mozna wziac np. z arkusza i odpowiednio sformatowac
 DANE_ZALOGI = """Jan Kowalski	ISNS	654345643	jan.kowalski@op.pl	żeglarz jachtowy	PU/43543	załoga
@@ -26,8 +26,7 @@ for z in DANE_ZALOGI:
         funkcja = z[6])
     )
 
-
-kapitan = Kapitan(imie_i_nazwisko = "Andrzej Gwiazda", stopien_zeglarski = "JSM",
+kapitan = Zeglarz(imie_i_nazwisko = "Andrzej Gwiazda", stopien_zeglarski = "JSM",
 nr_patentu = "PU/8243", nr_telefonu = "+48 788 132 046", adres_email = "jedrekgwiazda@gmail.com")
 
 jacht=Jacht(nazwa="s/y Figaro", klasa="Bavaria 45 BT ‘12")
@@ -52,11 +51,11 @@ rejs=Rejs(
 )
 
 #przykladowa pozytywna opinia
-pozytywna_opinia=Opinia_kapitana(pozytywna=0, wywiazywanie_z_obowiazkow=1, choroba_morska=0,
+pozytywna_opinia=OpiniaKapitana(pozytywna=0, wywiazywanie_z_obowiazkow=1, choroba_morska=0,
 odpornosc_w_trudnych_warunkach=0, uwagi="Super załogant!")
 
 #przykladowa negatywna opinia
-negatywna_opinia=Opinia_kapitana(pozytywna=1, wywiazywanie_z_obowiazkow=3, choroba_morska=2,
+negatywna_opinia=OpiniaKapitana(pozytywna=1, wywiazywanie_z_obowiazkow=3, choroba_morska=2,
 odpornosc_w_trudnych_warunkach=2, uwagi="Beznadziejny załogant!")
 
 armator = Osoba(imie_i_nazwisko="Czarter jachtów", nr_telefonu="+54 345 322 654",

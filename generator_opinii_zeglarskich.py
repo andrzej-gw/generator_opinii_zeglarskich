@@ -1,72 +1,68 @@
+"""Moduły do tworzenia ładniejszych klas z danymi i do liczenia dni pomiędzy datami"""
+import dataclasses
 from datetime import datetime
+
+@dataclasses.dataclass
 class Osoba:
-    def __init__(self, imie_i_nazwisko="."*27, nr_telefonu="."*27, adres_email="."*27):
-        self.imie_i_nazwisko = imie_i_nazwisko
-        self.nr_telefonu = nr_telefonu
-        self.adres_email = adres_email
+    """Klasa reprezentująca osobę"""
+    imie_i_nazwisko: str = "."*27
+    nr_telefonu: str = "."*27
+    adres_email: str = "."*27
 
+@dataclasses.dataclass
 class Zeglarz(Osoba):
-    def __init__(self, imie_i_nazwisko="."*27, stopien_zeglarski="."*27, nr_patentu="."*27,
-    nr_telefonu="."*27, adres_email="."*27, funkcja="."*27):
-        super().__init__(imie_i_nazwisko, nr_telefonu, adres_email)
-        self.stopien_zeglarski = stopien_zeglarski
-        self.nr_patentu = nr_patentu
+    """Klasa reprezentująca żeglarza. Dziedziczy po osobie, ma dodatkowe parametry: stopień
+    żeglarski i nr patentu"""
+    stopien_zeglarski: str = "."*27
+    nr_patentu: str = "."*27
 
+@dataclasses.dataclass
 class Zalogant(Zeglarz):
-    def __init__(self, imie_i_nazwisko="."*27, stopien_zeglarski="."*27, nr_patentu="."*27,
-    nr_telefonu="."*27, adres_email="."*27, funkcja="."*27):
-        super().__init__(imie_i_nazwisko, stopien_zeglarski, nr_patentu, nr_telefonu, adres_email)
-        self.funkcja = funkcja
+    """Klasa reprezentująca załoganta. Dziedziczy po żeglarzu, ma dodatkowy parametr: funkcja"""
+    funkcja: str = "."*27
 
-class Kapitan(Zeglarz):
-    def __init__(self, imie_i_nazwisko="."*27, stopien_zeglarski="."*27, nr_patentu="."*27,
-    nr_telefonu="."*27, adres_email="."*27):
-        super().__init__(imie_i_nazwisko, stopien_zeglarski, nr_patentu, nr_telefonu, adres_email)
-
+@dataclasses.dataclass
 class Jacht:
-    def __init__(self, nazwa="."*27, klasa="."*27, nr_rej="."*27, lc="."*27,
-    port_macierzysty="."*27, moc_silnika="."*27):
-        self.nazwa = nazwa
-        self.klasa = klasa
-        self.nr_rej = nr_rej
-        self.lc = lc
-        self.port_macierzysty = port_macierzysty
-        self.moc_silnika = moc_silnika
+    """Klasa reprezentująca jacht, zawierająca dane techniczne"""
+    nazwa: str = "."*27
+    klasa: str = "."*27
+    nr_rej: str = "."*27
+    lc: str = "."*27
+    port_macierzysty: str = "."*27
+    moc_silnika: str = "."*27
 
+@dataclasses.dataclass
 class Rejs:
-    def __init__(self, nr_plywania="."*27, data_zaokretowania="", port_zaokretowania="",
-    plywowy_zaokretowania="TAK/NIE", data_wyokretowania="", port_wyokretowania="",
-    plywowy_wyokretowania="TAK/NIE", odwiedzone_porty="", liczba_portow_plywowych="",
-    pod_zaglami="", na_silniku="", zagle_i_silnik="-", razem_godz_zeglugi="",
-    po_wodach_plywowych="", powyzej_6B="", w_portach_i_na_kotwicy="", przebyto_mil_morskich=""):
-        self.nr_plywania=nr_plywania
-        self.data_zaokretowania=data_zaokretowania
-        self.port_zaokretowania=port_zaokretowania
-        self.plywowy_zaokretowania=plywowy_zaokretowania
-        self.data_wyokretowania=data_wyokretowania
-        self.port_wyokretowania=port_wyokretowania
-        self.plywowy_wyokretowania=plywowy_wyokretowania
-        self.odwiedzone_porty=odwiedzone_porty
-        self.liczba_portow_plywowych=liczba_portow_plywowych
-        self.pod_zaglami=pod_zaglami
-        self.na_silniku=na_silniku
-        self.zagle_i_silnik=zagle_i_silnik
-        self.razem_godz_zeglugi=razem_godz_zeglugi
-        self.po_wodach_plywowych=po_wodach_plywowych
-        self.powyzej_6B=powyzej_6B
-        self.w_portach_i_na_kotwicy=w_portach_i_na_kotwicy
-        self.przebyto_mil_morskich=przebyto_mil_morskich
+    """Klasa reprezentująca rejs, zawiera informacje o portach i liczby godzin"""
+    nr_plywania: str = "."*27
+    data_zaokretowania: str = ""
+    port_zaokretowania: str = ""
+    plywowy_zaokretowania: str = "TAK/NIE"
+    data_wyokretowania: str = ""
+    port_wyokretowania: str = ""
+    plywowy_wyokretowania: str = "TAK/NIE"
+    odwiedzone_porty: str = ""
+    liczba_portow_plywowych: str = ""
+    pod_zaglami: str = ""
+    na_silniku: str = ""
+    zagle_i_silnik: str = "-"
+    razem_godz_zeglugi: str = ""
+    po_wodach_plywowych: str = ""
+    powyzej_6B: str = ""
+    w_portach_i_na_kotwicy: str = ""
+    przebyto_mil_morskich: str = ""
 
-class Opinia_kapitana:
-    def __init__(self, pozytywna=None, wywiazywanie_z_obowiazkow=None, choroba_morska=None,
-    odpornosc_w_trudnych_warunkach=None, uwagi=""):
-        self.pozytywna=pozytywna
-        self.wywiazywanie_z_obowiazkow=wywiazywanie_z_obowiazkow
-        self.choroba_morska=choroba_morska
-        self.odpornosc_w_trudnych_warunkach=odpornosc_w_trudnych_warunkach
-        self.uwagi=uwagi
+@dataclasses.dataclass
+class OpiniaKapitana:
+    """Klasa reprezentująca opinię kapitana"""
+    pozytywna: int=None
+    wywiazywanie_z_obowiazkow: int = None
+    choroba_morska: int = None
+    odpornosc_w_trudnych_warunkach: int= None
+    uwagi: str = ""
 
 def wypisz_naglowek():
+    """Funkcja wypisująca nagłówek dokumentu LaTeX"""
     print("""\\documentclass{article}
 \\usepackage{polski}
 \\usepackage[utf8]{inputenc}
@@ -85,12 +81,12 @@ def wypisz_naglowek():
 """)
 
 def wypisz_opinie(zalogant=Zalogant(), jacht=Jacht(), rejs=Rejs(),
-opinia_kapitana=Opinia_kapitana(), kapitan=Kapitan(), logo=False, jezyk="pl"):
+opinia_kapitana=OpiniaKapitana(), kapitan=Zeglarz(), logo=False):
+    """Funkcja wypisująca opinię jako kod dokumentu LaTeX"""
     def box(zaznaczone):
         if zaznaczone:
             return "\\XBox"
-        else:
-            return "\\Box"
+        return "\\Box"
     if logo:
         print("""\\newpage
 \\begin{minipage}{0.11\\textwidth}
@@ -196,7 +192,8 @@ rejs.data_wyokretowania=="" else str((datetime.strptime(rejs.data_wyokretowania,
 +"""}{|c|}{GODZINY ŻEGLUGI} & GODZINY POSTOJU & \\multirow{2}{2cm}{PRZEBYTO MIL MORSKICH} \\\\
 \\cline{1-"""+("7" if rejs.zagle_i_silnik!="-" else "6")+"""}
 pod żaglami & na silniku & """+("żagle i silnik &" if rejs.zagle_i_silnik!="-" else "")+
-"""\\textbf{razem godz. żegl.} & po wodach pływowych & powyżej $6^\\circ$B & w portach i na kotwicy & \\\\
+"""\\textbf{razem godz. żegl.} & po wodach pływowych & powyżej $6^\\circ$B &"""+
+""" w portach i na kotwicy & \\\\
 \\hline
 & &"""+(" &" if rejs.zagle_i_silnik!="-" else "")+""" & & & & \\\\
 \\huge """+str(rejs.pod_zaglami)+"&\\huge "+str(rejs.na_silniku)+" &\\huge "
@@ -257,8 +254,11 @@ miejscowość, data & podpis kapitana\\\\
 \\end{tabularx}""")
 
 
-def wypisz_karte_rejsu(jacht=Jacht(), rejs=Rejs(), uwagi_kapitana="", kapitan=Kapitan(), zaloga=[],
-armator=Osoba(), logo=False, jezyk="pl"):
+def wypisz_karte_rejsu(jacht=Jacht(), rejs=Rejs(), uwagi_kapitana="", kapitan=Zeglarz(), zaloga=None,
+armator=Osoba(), logo=False):
+    """Funkcja wypisująca kartę rejsu jako kod dokumentu LaTeX"""
+    if zaloga is None:
+        zaloga=[]
     if logo:
         print("""\\newpage
 \\begin{minipage}{0.11\\textwidth}
@@ -365,7 +365,8 @@ else str((datetime.strptime(rejs.data_wyokretowania, '%d.%m.%Y')
 +"""}{|c|}{GODZINY ŻEGLUGI} & GODZINY POSTOJU & \\multirow{2}{2cm}{PRZEBYTO MIL MORSKICH} \\\\
 \\cline{1-"""+("7" if rejs.zagle_i_silnik!="-" else "6")+"""}
 pod żaglami & na silniku & """+("żagle i silnik &" if rejs.zagle_i_silnik!="-" else "")+
-"""\\textbf{razem godz. żegl.} & po wodach pływowych & powyżej $6^\\circ$B & w portach i na kotwicy & \\\\
+"""\\textbf{razem godz. żegl.} & po wodach pływowych """
++"""& powyżej $6^\\circ$B & w portach i na kotwicy & \\\\
 \\hline
 & &"""+(" &" if rejs.zagle_i_silnik!="-" else "")+""" & & & & \\\\
 \\huge """+str(rejs.pod_zaglami)+"&\\huge "+str(rejs.na_silniku)+" &\\huge "
@@ -379,9 +380,11 @@ pod żaglami & na silniku & """+("żagle i silnik &" if rejs.zagle_i_silnik!="-"
 """)
 
     print("""\\section*{INFORMACJE O ZAŁODZE}
-    \\begin{tabular}{|m{0.013\\textwidth}|m{0.1727\\textwidth}|m{0.14\\textwidth}|m{0.08\\textwidth}||m{0.013\\textwidth}|m{0.1727\\textwidth}|m{0.14\\textwidth}|m{0.08\\textwidth}|}
+    \\begin{tabular}{|m{0.013\\textwidth}|m{0.1727\\textwidth}|m{0.14\\textwidth}|m{0.08\\textwi"""
+    +"""dth}||m{0.013\\textwidth}|m{0.1727\\textwidth}|m{0.14\\textwidth}|m{0.08\\textwidth}|}
     \\hline
-    lp. & imię i nazwisko & stopień żegl./mot. & funkcja na jachcie & lp. & imię i nazwisko & stopień żegl./mot. & funkcja na jachcie\\\\
+    lp. & imię i nazwisko & stopień żegl./mot. & funkcja na jachcie & lp. & imię i nazwisko &"""
+    +"""stopień żegl./mot. & funkcja na jachcie\\\\
     \\hline
     """)
     for i in range(6):
@@ -425,4 +428,5 @@ miejscowość, data & podpis armatora jachtu\\\\
 \\end{tabularx}""")
 
 def wypisz_stopke():
+    """Funkcja wypisująca zakończenie dokumentu LaTeX"""
     print("\\end{document}")
