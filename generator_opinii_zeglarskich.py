@@ -61,6 +61,15 @@ class OpiniaKapitana:
     odpornosc_w_trudnych_warunkach: int= None
     uwagi: str = ""
 
+def slownik(fraza, jezyk):
+    if jezyk=="pl":
+        return fraza
+    if jezyk=="eng":
+        return {
+            "OPINIA Z REJSU":"CREW MEMBER'S CERTIFICATE OF PASSAGE",
+        }[fraza]
+    assert False, "Nieznany język: "+jezyk
+
 def wypisz_naglowek():
     """Funkcja wypisująca nagłówek dokumentu LaTeX"""
     print("""\\documentclass{article}
@@ -81,7 +90,7 @@ def wypisz_naglowek():
 """)
 
 def wypisz_opinie(zalogant=Zalogant(), jacht=Jacht(), rejs=Rejs(),
-opinia_kapitana=OpiniaKapitana(), kapitan=Zeglarz(), logo=False):
+opinia_kapitana=OpiniaKapitana(), kapitan=Zeglarz(), logo=False, jezyk="pl"):
     """Funkcja wypisująca opinię jako kod dokumentu LaTeX"""
     def box(zaznaczone):
         if zaznaczone:
@@ -99,7 +108,7 @@ opinia_kapitana=OpiniaKapitana(), kapitan=Zeglarz(), logo=False):
  \\textbf{KLUB ŻEGLARSKI UNIWERSYTETU WARSZAWSKIEGO} \\\\
  \\hline
  \\\\
- \\textbf{\\huge OPINIA Z REJSU} \\\\
+ \\textbf{\\huge """+slownik("OPINIA Z REJSU",jezyk)+"""} \\\\
  \\\\
 \\hline
 \\end{tabularx}
@@ -112,46 +121,46 @@ opinia_kapitana=OpiniaKapitana(), kapitan=Zeglarz(), logo=False):
   | >{\\centering\\arraybackslash}X | }
  \\hline
  \\\\
- \\textbf{\\huge OPINIA Z REJSU} \\\\
+ \\textbf{\\huge """+slownik("OPINIA Z REJSU", jezyk)+"""} \\\\
  \\\\
 \\hline
 \\end{tabularx}
 """)
 
-    print("""\\section*{INFORMACJE O UCZESTNIKU REJSU}
+    print("""\\section*{"""+slownik("INFORMACJE O UCZESTNIKU REJSU", jezyk)+"""}
 \\begin{tabularx}{\\textwidth}{X X X}
-imię i nazwisko: \\textit{"""+str(zalogant.imie_i_nazwisko)+"""} & stop. żegl./mot.: \\textit{"""+
-str(zalogant.stopien_zeglarski)+"""} & nr patentu: \\textit{"""+str(zalogant.nr_patentu)+"""} \\\\
+"""+slownik("imię i nazwisko", jezyk)+": \\textit{"+str(zalogant.imie_i_nazwisko)+"} & "+slownik("stop. żegl./mot.", jezyk)+": \\textit{"+
+str(zalogant.stopien_zeglarski)+"} & "+slownik("nr patentu", jezyk)+": \\textit{"+str(zalogant.nr_patentu)+"""} \\\\
 nr telefonu: \\textit{"""+str(zalogant.nr_telefonu)+"""} & e-mail: \\textit{"""
-+str(zalogant.adres_email)+"""} & funkcja: \\textit{"""+str(zalogant.funkcja)+"""} \\\\
++str(zalogant.adres_email)+"} & "+slownik("funkcja", jezyk)+": \\textit{"+str(zalogant.funkcja)+"""} \\\\
 \\end{tabularx}
 """)
 
-    print("""\\section*{INFORMACJE O JACHCIE}
+    print("\\section*{"+slownik("INFORMACJE O JACHCIE", jezyk)+"""}
 
 \\begin{tabularx}{\\textwidth}{X X X}
-nazwa jachtu: \\textit{"""+str(jacht.nazwa)+"""} & klasa: \\textit{"""
-+str(jacht.klasa)+"""} & nr rej.: \\textit{"""+str(jacht.nr_rej)+"""} \\\\
-lc[m]: \\textit{"""+str(jacht.lc)+"""} & port macierzysty: \\textit{"""+str(jacht.port_macierzysty)
-+"""} & moc silnika [kW]: \\textit{"""+str(jacht.moc_silnika)+"""} \\\\
+"""+slownik("nazwa jachtu", jezyk)+": \\textit{"+str(jacht.nazwa)+"} & "+slownik("klasa", jezyk)+": \\textit{"
++str(jacht.klasa)+"} & "+slownik("nr rej.", jezyk)+": \\textit{"+str(jacht.nr_rej)+"""} \\\\
+lc[m]: \\textit{"""+str(jacht.lc)+"} & "+slownik("port macierzysty", jezyk)+": \\textit{"+str(jacht.port_macierzysty)
++"} & "+slownik("moc silnika", jezyk)+" [kW]: \\textit{"+str(jacht.moc_silnika)+"""} \\\\
 \\end{tabularx}
 """)
 
-    print("""\\section*{INFORMACJE O REJSIE}
+    print("\\section*{"+slownik("INFORMACJE O REJSIE", jezyk)+"""}
 
-Wpisu dokonano na podstawie dziennika jachtowego, nr pływania: \\textit{"""+str(rejs.nr_plywania)
+"""+slownik("Wpisu dokonano na podstawie dziennika jachtowego, nr pływania", jezyk)+": \\textit{"+str(rejs.nr_plywania)
 +"""}
 \\\\
 
 \\begin{tabularx}{\\textwidth}{|X|X|X|}
 \\hline
-Port zaokrętowania: \\textit{"""+str(rejs.port_zaokretowania)+"""} & Data: \\textit{"""
-+str(rejs.data_zaokretowania)+"""} & Pływowy: \\textit{"""+str(rejs.plywowy_zaokretowania)+"""} \\\\
+"""+slownik("Port zaokrętowania", jezyk)+": \\textit{"+str(rejs.port_zaokretowania)+"} & "+slownik("Data", jezyk)+": \\textit{"
++str(rejs.data_zaokretowania)+"} & "+slownik("Pływowy", jezyk)+": \\textit{"+str(rejs.plywowy_zaokretowania)+"""} \\\\
 \\hline
-Port wyokrętowania: \\textit{"""+str(rejs.port_wyokretowania)+"""} & Data: \\textit{"""
-+str(rejs.data_wyokretowania)+"""} & Pływowy: \\textit{"""+str(rejs.plywowy_wyokretowania)+"""} \\\\
+"""+slownik("Port wyokrętowania", jezyk)+": \\textit{"+str(rejs.port_wyokretowania)+"} & "+slownik("Data", jezyk)+": \\textit{"
++str(rejs.data_wyokretowania)+"} & "+slownik("Pływowy", jezyk)+": \\textit{"+str(rejs.plywowy_wyokretowania)+"""} \\\\
 \\hline
-\\multicolumn{3}{|l|}{Odwiedzone miejsca:""")
+\\multicolumn{3}{|l|}{"""+slownik("Odwiedzone miejsca", jezyk)+":")
 
     if rejs.odwiedzone_porty=="":
         print("""\\dotfill} \\\\
@@ -169,8 +178,8 @@ Port wyokrętowania: \\textit{"""+str(rejs.port_wyokretowania)+"""} & Data: \\te
             else:
                 print("\\multicolumn{3}{|l|}{\\dotfill} \\\\")
     print("""\\hline
-\\multicolumn{2}{|l|}{W tym liczba portów pływowych: \\textit{"""+str(rejs.liczba_portow_plywowych)
-+"""}} & Liczba dni rejsu: \\textit{"""+("" if rejs.data_zaokretowania=="" or
+\\multicolumn{2}{|l|}{"""+slownik("W tym liczba portów pływowych", jezyk)+": \\textit{"+str(rejs.liczba_portow_plywowych)
++"}} & "+slownik("Liczba dni rejsu", jezyk)+": \\textit{"+("" if rejs.data_zaokretowania=="" or
 rejs.data_wyokretowania=="" else str((datetime.strptime(rejs.data_wyokretowania, '%d.%m.%Y')
 -datetime.strptime(rejs.data_zaokretowania, '%d.%m.%Y')).days+1))+"""}\\\\
 \\hline
@@ -189,11 +198,11 @@ rejs.data_wyokretowania=="" else str((datetime.strptime(rejs.data_wyokretowania,
 |}
 \\hline
 \\multicolumn{"""+("6" if rejs.zagle_i_silnik!="-" else "5")
-+"""}{|c|}{GODZINY ŻEGLUGI} & GODZINY POSTOJU & \\multirow{2}{2cm}{PRZEBYTO MIL MORSKICH} \\\\
++"}{|c|}{"+slownik("GODZINY ŻEGLUGI", jezyk)+"} & "+slownik("GODZINY POSTOJU", jezyk)+" & \\multirow{2}{2cm}{"+slownik("PRZEBYTO MIL MORSKICH", jezyk)+"""} \\\\
 \\cline{1-"""+("7" if rejs.zagle_i_silnik!="-" else "6")+"""}
-pod żaglami & na silniku & """+("żagle i silnik &" if rejs.zagle_i_silnik!="-" else "")+
-"""\\textbf{razem godz. żegl.} & po wodach pływowych & powyżej $6^\\circ$B &"""+
-""" w portach i na kotwicy & \\\\
+"""+slownik("pod żaglami", jezyk)+" & "+slownik("na silniku", jezyk)+" & "+(slownik("żagle i silnik", jezyk)+" &" if rejs.zagle_i_silnik!="-" else "")+
+"\\textbf{"+slownik("razem godz. żegl.", jezyk)+"} & "+slownik("po wodach pływowych", jezyk)+" & "+slownik("powyżej", jezyk)+" $6^\\circ$B &"""+
+" "+slownik("w portach i na kotwicy", jezyk)+""" & \\\\
 \\hline
 & &"""+(" &" if rejs.zagle_i_silnik!="-" else "")+""" & & & & \\\\
 \\huge """+str(rejs.pod_zaglami)+"&\\huge "+str(rejs.na_silniku)+" &\\huge "
@@ -206,29 +215,29 @@ pod żaglami & na silniku & """+("żagle i silnik &" if rejs.zagle_i_silnik!="-"
 \\end{tabularx}
 """)
 
-    print("""\\section*{OPINIA KAPITANA ~~~~~~~~ $"""+box(opinia_kapitana.pozytywna==0)
-    +"$ pozytywna ~~~~~~~~ $"+box(opinia_kapitana.pozytywna==1)+"""$ negatywna}
+    print("\\section*{"+slownik("OPINIA KAPITANA", jezyk)+" ~~~~~~~~ $"+box(opinia_kapitana.pozytywna==0)
+    +"$ "+slownik("pozytywna", jezyk)+" ~~~~~~~~ $"+box(opinia_kapitana.pozytywna==1)+"$ "+slownik("negatywna", jezyk)+"""}
 
 \\begin{tabularx}{\\textwidth}{X X X X}
-\\multicolumn{4}{l}{\\textbf{Z obowiązków wywiązywał/a się:}}\\\\
-$"""+box(opinia_kapitana.wywiazywanie_z_obowiazkow==0)+"$ bardzo dobrze & $"
-+box(opinia_kapitana.wywiazywanie_z_obowiazkow==1)+"$ dobrze & $"
-+box(opinia_kapitana.wywiazywanie_z_obowiazkow==2)+"$ dostatecznie & $"
-+box(opinia_kapitana.wywiazywanie_z_obowiazkow==3)+"""$ niedostatecznie\\\\
+\\multicolumn{4}{l}{\\textbf{"""+slownik("Z obowiązków wywiązywał/a się", jezyk)+""":}}\\\\
+$"""+box(opinia_kapitana.wywiazywanie_z_obowiazkow==0)+"$ "+slownik("bardzo dobrze", jezyk)+" & $"
++box(opinia_kapitana.wywiazywanie_z_obowiazkow==1)+"$ "+slownik("dobrze", jezyk)+" & $"
++box(opinia_kapitana.wywiazywanie_z_obowiazkow==2)+"$ "+slownik("dostatecznie", jezyk)+" & $"
++box(opinia_kapitana.wywiazywanie_z_obowiazkow==3)+"$ "+slownik("niedostatecznie", jezyk)+"""\\\\
 \\\\
-\\multicolumn{4}{l}{\\textbf{Chorobie morskiej:}}\\\\
-$"""+box(opinia_kapitana.choroba_morska==0)+"$ nie podlegał/a & $"
-+box(opinia_kapitana.choroba_morska==1)+"$ chorowała/a ciężko & \\multicolumn{2}{l}{$"
-+box(opinia_kapitana.choroba_morska==2)+"""$ chorował/a sporadycznie i mógł/mogła pracować}\\\\
+\\multicolumn{4}{l}{\\textbf{"""+slownik("Chorobie morskiej", jezyk)+""":}}\\\\
+$"""+box(opinia_kapitana.choroba_morska==0)+"$ "+slownik("nie podlegał/a", jezyk)+" & $"
++box(opinia_kapitana.choroba_morska==1)+"$ "+slownik("chorowała/a ciężko", jezyk)+" & \\multicolumn{2}{l}{$"
++box(opinia_kapitana.choroba_morska==2)+"$ "+slownik("chorował/a sporadycznie i mógł/mogła pracować", jezyk)+"""}\\\\
 \\\\
-\\multicolumn{4}{l}{\\textbf{Odporność w trudnych warunkach:}}\\\\
-$"""+box(opinia_kapitana.odpornosc_w_trudnych_warunkach==0)+"$ dobra & $"
-+box(opinia_kapitana.odpornosc_w_trudnych_warunkach==1)+"$ dostateczna & $\\Box$ niedostateczna & $"
-+box(opinia_kapitana.odpornosc_w_trudnych_warunkach==2)+"""$ nie sprawdzono\\\\
+\\multicolumn{4}{l}{\\textbf{"""+slownik("Odporność w trudnych warunkach", jezyk)+""":}}\\\\
+$"""+box(opinia_kapitana.odpornosc_w_trudnych_warunkach==0)+"$ "+slownik("dobra", jezyk)+" & $"
++box(opinia_kapitana.odpornosc_w_trudnych_warunkach==1)+"$ "+slownik("dostateczna", jezyk)+" & $\\Box$ "+slownik("niedostateczna", jezyk)+" & $"
++box(opinia_kapitana.odpornosc_w_trudnych_warunkach==2)+"$ "+slownik("nie sprawdzono", jezyk)+"""\\\\
 \\end{tabularx}
 """)
 
-    print("""\\section*{UWAGI KAPITANA}
+    print("\\section*{"+slownik("UWAGI KAPITANA", jezyk)+"""}
 
 """)
     tmp=opinia_kapitana.uwagi.split("\n")
@@ -239,23 +248,23 @@ $"""+box(opinia_kapitana.odpornosc_w_trudnych_warunkach==0)+"$ dobra & $"
             print(".\\dotfill \\\\")
 
 
-    print("""\\section*{INFORMACJE O KAPITANIE}
+    print("\\section*{"+slownik("INFORMACJE O KAPITANIE", jezyk)+"""}
 
 \\begin{tabularx}{\\textwidth}{X X}
-imię i nazwisko: \\textit{"""+str(kapitan.imie_i_nazwisko)
-+"} & stop. żegl./mot. i nr patentu: \\textit{"+
-(kapitan.stopien_zeglarski+" nr "+kapitan.nr_patentu if kapitan.stopien_zeglarski+kapitan.nr_patentu
+"""+slownik("imię i nazwisko", jezyk)+": \\textit{"+str(kapitan.imie_i_nazwisko)
++"} & "+slownik("stop. żegl./mot. i nr patentu", jezyk)+": \\textit{"+
+(kapitan.stopien_zeglarski+" "+slownik("nr", jezyk)+" "+kapitan.nr_patentu if kapitan.stopien_zeglarski+kapitan.nr_patentu
 !="......................................................" else "."*27)+"""}\\\\
-nr telefonu: \\textit{"""+str(kapitan.nr_telefonu)+"} & e-mail: \\textit{"+str(kapitan.adres_email)
+"""+slownik("nr telefonu", jezyk)+": \\textit{"+str(kapitan.nr_telefonu)+"} & e-mail: \\textit{"+str(kapitan.adres_email)
 +"""}\\\\
 \\\\\\\\
 ...................................... & ......................................\\\\
-miejscowość, data & podpis kapitana\\\\
+"""+slownik("miejscowość, data", jezyk)+" & "+slownik("podpis kapitana", jezyk)+"""\\\\
 \\end{tabularx}""")
 
 
 def wypisz_karte_rejsu(jacht=Jacht(), rejs=Rejs(), uwagi_kapitana="", kapitan=Zeglarz(), zaloga=None,
-armator=Osoba(), logo=False):
+armator=Osoba(), logo=False, jezyk="pl"):
     """Funkcja wypisująca kartę rejsu jako kod dokumentu LaTeX"""
     if zaloga is None:
         zaloga=[]
