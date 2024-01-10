@@ -1,5 +1,5 @@
 """Moduł zwierający klasy i funkcje do generowania opinii."""
-from generator_opinii_zeglarskich import (Zalogant, Zeglarz, Jacht, Rejs,
+from generator_opinii_zeglarskich import (Zalogant, Zeglarz, Kapitan, Jacht, Rejs,
 OpiniaKapitana, Osoba, wypisz_karte_rejsu, wypisz_naglowek, wypisz_opinie, wypisz_stopke)
 
 #dane zalogi mozna wziac np. z arkusza i odpowiednio sformatowac
@@ -26,10 +26,10 @@ for z in DANE_ZALOGI:
         funkcja = z[6])
     )
 
-kapitan = Zeglarz(imie_i_nazwisko = "Andrzej Gwiazda", stopien_zeglarski = "JSM",
+kapitan = Kapitan(imie_i_nazwisko = "Andrzej Gwiazda", stopien_zeglarski = "JSM",
 nr_patentu = "PU/8243", nr_telefonu = "+48 788 132 046", adres_email = "jedrekgwiazda@gmail.com")
 
-jacht=Jacht(nazwa="s/y Figaro", klasa="Bavaria 45 BT ‘12")
+jacht=Jacht(nazwa="s/y Figaro", typ="Bavaria 45 BT ‘12")
 
 rejs=Rejs(
     data_zaokretowania="23.09.2023",
@@ -80,6 +80,12 @@ kapitan=kapitan)
 wypisz_opinie(zaloga[0], jacht=jacht, rejs=rejs, logo=True, kapitan=kapitan)
 wypisz_opinie()
 wypisz_karte_rejsu()
+wypisz_opinie(logo=True)
+wypisz_karte_rejsu(logo=True)
+wypisz_opinie(jezyk="eng")
+wypisz_karte_rejsu(jezyk="eng")
+wypisz_opinie(jezyk="eng", logo=True)
+wypisz_karte_rejsu(jezyk="eng", logo=True)
 
 #stopka potrzebna jest do zakonczenia dokumentu .tex (wywolac dokladnie raz na koncu)
 wypisz_stopke()

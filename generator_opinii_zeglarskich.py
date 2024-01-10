@@ -2,65 +2,6 @@
 import dataclasses
 from datetime import datetime
 
-@dataclasses.dataclass
-class Osoba:
-    """Klasa reprezentująca osobę"""
-    imie_i_nazwisko: str = "."*27
-    nr_telefonu: str = "."*27
-    adres_email: str = "."*27
-
-@dataclasses.dataclass
-class Zeglarz(Osoba):
-    """Klasa reprezentująca żeglarza. Dziedziczy po osobie, ma dodatkowe parametry: stopień
-    żeglarski i nr patentu"""
-    stopien_zeglarski: str = "."*27
-    nr_patentu: str = "."*27
-
-@dataclasses.dataclass
-class Zalogant(Zeglarz):
-    """Klasa reprezentująca załoganta. Dziedziczy po żeglarzu, ma dodatkowy parametr: funkcja"""
-    funkcja: str = "."*27
-
-@dataclasses.dataclass
-class Jacht:
-    """Klasa reprezentująca jacht, zawierająca dane techniczne"""
-    nazwa: str = "."*27
-    klasa: str = "."*27
-    nr_rej: str = "."*27
-    lc: str = "."*27
-    port_macierzysty: str = "."*27
-    moc_silnika: str = "."*27
-
-@dataclasses.dataclass
-class Rejs:
-    """Klasa reprezentująca rejs, zawiera informacje o portach i liczby godzin"""
-    nr_plywania: str = "."*27
-    data_zaokretowania: str = ""
-    port_zaokretowania: str = ""
-    plywowy_zaokretowania: str = "TAK/NIE"
-    data_wyokretowania: str = ""
-    port_wyokretowania: str = ""
-    plywowy_wyokretowania: str = "TAK/NIE"
-    odwiedzone_porty: str = ""
-    liczba_portow_plywowych: str = ""
-    pod_zaglami: str = ""
-    na_silniku: str = ""
-    zagle_i_silnik: str = "-"
-    razem_godz_zeglugi: str = ""
-    po_wodach_plywowych: str = ""
-    powyzej_6B: str = ""
-    w_portach_i_na_kotwicy: str = ""
-    przebyto_mil_morskich: str = ""
-
-@dataclasses.dataclass
-class OpiniaKapitana:
-    """Klasa reprezentująca opinię kapitana"""
-    pozytywna: int=None
-    wywiazywanie_z_obowiazkow: int = None
-    choroba_morska: int = None
-    odpornosc_w_trudnych_warunkach: int= None
-    uwagi: str = ""
-
 def slownik(fraza, jezyk):
     if jezyk=="pl":
         return fraza
@@ -73,8 +14,8 @@ def slownik(fraza, jezyk):
             "nr patentu" : "cert. no.",
             "funkcja" : "rank",
             "INFORMACJE O JACHCIE" : "INFORMATION ABOUT YACHT",
-            "nazwa jachtu" : "name",
-            "klasa" : "type",
+            "nazwa" : "name",
+            "typ" : "type",
             "nr rej." : "reg. no.",
             "port macierzysty" : "home port",
             "moc silnika" : "engine power",
@@ -88,7 +29,7 @@ def slownik(fraza, jezyk):
             "W tym liczba portów pływowych" : "Number of tidal ports",
             "Liczba dni rejsu" : "Number of cruise days",
             "GODZINY ŻEGLUGI" : "UNDER WAY",
-            "GODZINY POSTOJU" : "NUMBER OF MOORING HOURS",
+            "GODZINY POSTOJU" : "MOORING HOURS",
             "PRZEBYTO MIL MORSKICH" : "NUMBER OF NAUTICAL MILES",
             "pod żaglami" : "under sails",
             "na silniku" : "using engine",
@@ -116,12 +57,211 @@ def slownik(fraza, jezyk):
             "nie sprawdzono" : "not verified",
             "UWAGI KAPITANA" : "CAPTAIN'S COMMENTS",
             "INFORMACJE O KAPITANIE" : "INFORMATION ABOUT CAPTAIN",
-            "stop. żegl./mot. i nr patentu" : "cert. of sailing/motor competency",
             "nr telefonu" : "phone no.",
             "miejscowość, data" : "place, date",
-            "podpis kapitana" : "captain's signature"
+            "podpis kapitana" : "captain's signature",
+            "KARTA REJSU" : "CAPTAIN’S  CERTIFICATE  OF  PASSAGE",
+            "INFORMACJE O ZAŁODZE" : "INFORMATION ABOUT CREW",
+            "lp." : "no.",
+            "INFORMACJE O ARMATORZE" : "INFORMATION ABOUT OWNER",
+            "podpis armatora jachtu" : "owner's signature"
         }[fraza]
     assert False, "Nieznany język: "+jezyk
+
+@dataclasses.dataclass
+class Osoba:
+    """Klasa reprezentująca osobę"""
+    imie_i_nazwisko: str = "."*27
+    nr_telefonu: str = "."*27
+    adres_email: str = "."*27
+
+@dataclasses.dataclass
+class Zeglarz(Osoba):
+    """Klasa reprezentująca żeglarza. Dziedziczy po osobie, ma dodatkowe parametry: stopień
+    żeglarski i nr patentu"""
+    stopien_zeglarski: str = "."*27
+    nr_patentu: str = "."*27
+
+@dataclasses.dataclass
+class Zalogant(Zeglarz):
+    """Klasa reprezentująca załoganta. Dziedziczy po żeglarzu, ma dodatkowy parametr: funkcja"""
+    funkcja: str = "."*27
+    def wypisz(self, jezyk):
+        print("""\\section*{"""+slownik("INFORMACJE O UCZESTNIKU REJSU", jezyk)+"""}
+\\begin{tabularx}{\\textwidth}{X X X}
+"""+slownik("imię i nazwisko", jezyk)+": \\textit{"+str(self.imie_i_nazwisko)+"} & "+slownik("stop. żegl./mot.", jezyk)+": \\textit{"+
+str(self.stopien_zeglarski)+"} & "+slownik("nr patentu", jezyk)+": \\textit{"+str(self.nr_patentu)+"""} \\\\
+nr telefonu: \\textit{"""+str(self.nr_telefonu)+"""} & e-mail: \\textit{"""
++str(self.adres_email)+"} & "+slownik("funkcja", jezyk)+": \\textit{"+str(self.funkcja)+"""} \\\\
+\\end{tabularx}
+""")
+
+@dataclasses.dataclass
+class Kapitan(Zeglarz):
+    """Klasa reprezentująca kapitana. Dziedziczy po żeglarzu."""
+    def wypisz(self, jezyk):
+        print("""\\section*{"""+slownik("INFORMACJE O KAPITANIE", jezyk)+"""}
+\\begin{tabularx}{\\textwidth}{X X X}
+"""+slownik("imię i nazwisko", jezyk)+": \\textit{"+str(self.imie_i_nazwisko)+"} & "+slownik("stop. żegl./mot.", jezyk)+": \\textit{"+
+str(self.stopien_zeglarski)+"} & "+slownik("nr patentu", jezyk)+": \\textit{"+str(self.nr_patentu)+"""} \\\\
+nr telefonu: \\textit{"""+str(self.nr_telefonu)+"""} & e-mail: \\textit{"""
++str(self.adres_email)+"""} \\\\
+\\end{tabularx}
+""")
+
+@dataclasses.dataclass
+class Jacht:
+    """Klasa reprezentująca jacht, zawierająca dane techniczne"""
+    nazwa: str = "."*27
+    typ: str = "."*27
+    nr_rej: str = "."*27
+    lc: str = "."*27
+    port_macierzysty: str = "."*27
+    moc_silnika: str = "."*27
+    def wypisz(self, jezyk):
+        print("\\section*{"+slownik("INFORMACJE O JACHCIE", jezyk)+"""}
+
+\\begin{tabularx}{\\textwidth}{X X X}
+"""+slownik("nazwa", jezyk)+": \\textit{"+str(self.nazwa)+"} & "+slownik("typ", jezyk)+": \\textit{"
++str(self.typ)+"} & "+slownik("nr rej.", jezyk)+": \\textit{"+str(self.nr_rej)+"""} \\\\
+lc[m]: \\textit{"""+str(self.lc)+"} & "+slownik("port macierzysty", jezyk)+": \\textit{"+str(self.port_macierzysty)
++"} & "+slownik("moc silnika", jezyk)+" [kW]: \\textit{"+str(self.moc_silnika)+"""} \\\\
+\\end{tabularx}
+""")
+
+@dataclasses.dataclass
+class Rejs:
+    """Klasa reprezentująca rejs, zawiera informacje o portach i liczby godzin"""
+    nr_plywania: str = "."*27
+    data_zaokretowania: str = ""
+    port_zaokretowania: str = ""
+    plywowy_zaokretowania: str = "TAK/NIE"
+    data_wyokretowania: str = ""
+    port_wyokretowania: str = ""
+    plywowy_wyokretowania: str = "TAK/NIE"
+    odwiedzone_porty: str = ""
+    liczba_portow_plywowych: str = ""
+    pod_zaglami: str = ""
+    na_silniku: str = ""
+    zagle_i_silnik: str = "-"
+    razem_godz_zeglugi: str = ""
+    po_wodach_plywowych: str = ""
+    powyzej_6B: str = ""
+    w_portach_i_na_kotwicy: str = ""
+    przebyto_mil_morskich: str = ""
+    def wypisz(self, jezyk):
+        print("\\section*{"+slownik("INFORMACJE O REJSIE", jezyk)+"""}
+
+"""+slownik("Wpisu dokonano na podstawie dziennika jachtowego, nr pływania", jezyk)+": \\textit{"+str(self.nr_plywania)
++"""}
+\\\\
+
+\\begin{tabularx}{\\textwidth}{|X|X|X|}
+\\hline
+"""+slownik("Port zaokrętowania", jezyk)+": \\textit{"+str(self.port_zaokretowania)+"} & "+slownik("Data", jezyk)+": \\textit{"
++str(self.data_zaokretowania)+"} & "+slownik("Pływowy", jezyk)+": \\textit{"+str(self.plywowy_zaokretowania)+"""} \\\\
+\\hline
+"""+slownik("Port wyokrętowania", jezyk)+": \\textit{"+str(self.port_wyokretowania)+"} & "+slownik("Data", jezyk)+": \\textit{"
++str(self.data_wyokretowania)+"} & "+slownik("Pływowy", jezyk)+": \\textit{"+str(self.plywowy_wyokretowania)+"""} \\\\
+\\hline
+\\multicolumn{3}{|l|}{"""+slownik("Odwiedzone miejsca", jezyk)+":")
+
+        if self.odwiedzone_porty=="":
+            print("""\\dotfill} \\\\
+\\multicolumn{3}{|l|}{\\dotfill} \\\\
+\\multicolumn{3}{|l|}{\\dotfill} \\\\
+\\multicolumn{3}{|l|}{\\dotfill} \\\\
+""")
+        else:
+            tmp=self.odwiedzone_porty.split("\n")
+            for i in range(4):
+                if i==0:
+                    print("\\textit{"+tmp[i]+"}\\dotfill}\\\\")
+                elif i<len(tmp):
+                    print("\\multicolumn{3}{|l|}{\\textit{"+str(tmp[i])+"}\\dotfill} \\\\")
+                else:
+                    print("\\multicolumn{3}{|l|}{\\dotfill} \\\\")
+        print("""\\hline
+\\multicolumn{2}{|l|}{"""+slownik("W tym liczba portów pływowych", jezyk)+": \\textit{"+str(self.liczba_portow_plywowych)
++"}} & "+slownik("Liczba dni rejsu", jezyk)+": \\textit{"+("" if self.data_zaokretowania=="" or
+self.data_wyokretowania=="" else str((datetime.strptime(self.data_wyokretowania, '%d.%m.%Y')
+-datetime.strptime(self.data_zaokretowania, '%d.%m.%Y')).days+1))+"""}\\\\
+\\hline
+\\end{tabularx}
+\\\\\\\\
+
+\\begin{tabularx}{\\textwidth}{
+|>{\\centering\\arraybackslash}X
+|>{\\centering\\arraybackslash}X"""+("""
+|>{\\centering\\arraybackslash}X""" if self.zagle_i_silnik!="-" else "")+"""
+|>{\\centering\\arraybackslash}X
+|>{\\centering\\arraybackslash}X
+|>{\\centering\\arraybackslash}X
+|>{\\centering\\arraybackslash}X
+|>{\\centering\\arraybackslash}X
+|}
+\\hline
+\\multicolumn{"""+("6" if self.zagle_i_silnik!="-" else "5")
++"}{|c|}{"+slownik("GODZINY ŻEGLUGI", jezyk)+"} & "+slownik("GODZINY POSTOJU", jezyk)+" & \\multirow{2}{2cm}{"+slownik("PRZEBYTO MIL MORSKICH", jezyk)+"""} \\\\
+\\cline{1-"""+("7" if self.zagle_i_silnik!="-" else "6")+"""}
+"""+slownik("pod żaglami", jezyk)+" & "+slownik("na silniku", jezyk)+" & "+(slownik("żagle i silnik", jezyk)+" &" if self.zagle_i_silnik!="-" else "")+
+"\\textbf{"+slownik("razem godz. żegl.", jezyk)+"} & "+slownik("po wodach pływowych", jezyk)+" & "+slownik("powyżej", jezyk)+" $6^\\circ$B &"""+
+" "+slownik("w portach i na kotwicy", jezyk)+""" & \\\\
+\\hline
+& &"""+(" &" if self.zagle_i_silnik!="-" else "")+""" & & & & \\\\
+\\huge """+str(self.pod_zaglami)+"&\\huge "+str(self.na_silniku)+" &\\huge "
++(str(self.zagle_i_silnik)+" &\\huge " if self.zagle_i_silnik!="-" else "")
++str(self.razem_godz_zeglugi)+
+" &\\huge "+str(self.po_wodach_plywowych)+" &\\huge "+str(self.powyzej_6B)+" &\\huge """
++str(self.w_portach_i_na_kotwicy)+" &\\huge """+str(self.przebyto_mil_morskich)+""" \\\\
+& &"""+(" &" if self.zagle_i_silnik!="-" else "")+""" & & & & \\\\
+\\hline
+\\end{tabularx}
+""")
+
+@dataclasses.dataclass
+class OpiniaKapitana:
+    """Klasa reprezentująca opinię kapitana"""
+    pozytywna: int=None
+    wywiazywanie_z_obowiazkow: int = None
+    choroba_morska: int = None
+    odpornosc_w_trudnych_warunkach: int= None
+    uwagi: str = ""
+    def wypisz(self, jezyk):
+        def box(zaznaczone):
+            if zaznaczone:
+                return "\\XBox"
+            return "\\Box"
+        print("\\section*{"+slownik("OPINIA KAPITANA", jezyk)+" ~~~~~~~~ $"+box(self.pozytywna==0)
+    +"$ "+slownik("pozytywna", jezyk)+" ~~~~~~~~ $"+box(self.pozytywna==1)+"$ "+slownik("negatywna", jezyk)+"""}
+
+\\begin{tabularx}{\\textwidth}{X X X X}
+\\multicolumn{4}{l}{\\textbf{"""+slownik("Z obowiązków wywiązywał/a się", jezyk)+""":}}\\\\
+$"""+box(self.wywiazywanie_z_obowiazkow==0)+"$ "+slownik("bardzo dobrze", jezyk)+" & $"
++box(self.wywiazywanie_z_obowiazkow==1)+"$ "+slownik("dobrze", jezyk)+" & $"
++box(self.wywiazywanie_z_obowiazkow==2)+"$ "+slownik("dostatecznie", jezyk)+" & $"
++box(self.wywiazywanie_z_obowiazkow==3)+"$ "+slownik("niedostatecznie", jezyk)+"""\\\\
+\\\\
+\\multicolumn{4}{l}{\\textbf{"""+slownik("Chorobie morskiej", jezyk)+""":}}\\\\
+$"""+box(self.choroba_morska==0)+"$ "+slownik("nie podlegał/a", jezyk)+" & $"
++box(self.choroba_morska==1)+"$ "+slownik("chorował/a ciężko", jezyk)+" & \\multicolumn{2}{l}{$"
++box(self.choroba_morska==2)+"$ "+slownik("chorował/a sporadycznie i mógł/mogła pracować", jezyk)+"""}\\\\
+\\\\
+\\multicolumn{4}{l}{\\textbf{"""+slownik("Odporność w trudnych warunkach", jezyk)+""":}}\\\\
+$"""+box(self.odpornosc_w_trudnych_warunkach==0)+"$ "+slownik("dobra", jezyk)+" & $"
++box(self.odpornosc_w_trudnych_warunkach==1)+"$ "+slownik("dostateczna", jezyk)+" & $\\Box$ "+slownik("niedostateczna", jezyk)+" & $"
++box(self.odpornosc_w_trudnych_warunkach==2)+"$ "+slownik("nie sprawdzono", jezyk)+"""\\\\
+\\end{tabularx}
+""")
+        print("\\section*{"+slownik("UWAGI KAPITANA", jezyk)+"""}
+
+""")
+        tmp=self.uwagi.split("\n")
+        for i in range(3):
+            if i<len(tmp):
+                print("\\textit{"+str(tmp[i])+"}\\dotfill \\\\")
+            else:
+                print(".\\dotfill \\\\")
 
 def wypisz_naglowek():
     """Funkcja wypisująca nagłówek dokumentu LaTeX"""
@@ -143,12 +283,8 @@ def wypisz_naglowek():
 """)
 
 def wypisz_opinie(zalogant=Zalogant(), jacht=Jacht(), rejs=Rejs(),
-opinia_kapitana=OpiniaKapitana(), kapitan=Zeglarz(), logo=False, jezyk="pl"):
+opinia_kapitana=OpiniaKapitana(), kapitan=Kapitan(), logo=False, jezyk="pl"):
     """Funkcja wypisująca opinię jako kod dokumentu LaTeX"""
-    def box(zaznaczone):
-        if zaznaczone:
-            return "\\XBox"
-        return "\\Box"
     if logo:
         print("""\\newpage
 \\begin{minipage}{0.11\\textwidth}
@@ -180,143 +316,24 @@ opinia_kapitana=OpiniaKapitana(), kapitan=Zeglarz(), logo=False, jezyk="pl"):
 \\end{tabularx}
 """)
 
-    print("""\\section*{"""+slownik("INFORMACJE O UCZESTNIKU REJSU", jezyk)+"""}
-\\begin{tabularx}{\\textwidth}{X X X}
-"""+slownik("imię i nazwisko", jezyk)+": \\textit{"+str(zalogant.imie_i_nazwisko)+"} & "+slownik("stop. żegl./mot.", jezyk)+": \\textit{"+
-str(zalogant.stopien_zeglarski)+"} & "+slownik("nr patentu", jezyk)+": \\textit{"+str(zalogant.nr_patentu)+"""} \\\\
-nr telefonu: \\textit{"""+str(zalogant.nr_telefonu)+"""} & e-mail: \\textit{"""
-+str(zalogant.adres_email)+"} & "+slownik("funkcja", jezyk)+": \\textit{"+str(zalogant.funkcja)+"""} \\\\
-\\end{tabularx}
-""")
+    zalogant.wypisz(jezyk)
 
-    print("\\section*{"+slownik("INFORMACJE O JACHCIE", jezyk)+"""}
+    jacht.wypisz(jezyk)
 
-\\begin{tabularx}{\\textwidth}{X X X}
-"""+slownik("nazwa jachtu", jezyk)+": \\textit{"+str(jacht.nazwa)+"} & "+slownik("klasa", jezyk)+": \\textit{"
-+str(jacht.klasa)+"} & "+slownik("nr rej.", jezyk)+": \\textit{"+str(jacht.nr_rej)+"""} \\\\
-lc[m]: \\textit{"""+str(jacht.lc)+"} & "+slownik("port macierzysty", jezyk)+": \\textit{"+str(jacht.port_macierzysty)
-+"} & "+slownik("moc silnika", jezyk)+" [kW]: \\textit{"+str(jacht.moc_silnika)+"""} \\\\
-\\end{tabularx}
-""")
+    rejs.wypisz(jezyk)
 
-    print("\\section*{"+slownik("INFORMACJE O REJSIE", jezyk)+"""}
+    opinia_kapitana.wypisz(jezyk)
 
-"""+slownik("Wpisu dokonano na podstawie dziennika jachtowego, nr pływania", jezyk)+": \\textit{"+str(rejs.nr_plywania)
-+"""}
-\\\\
-
-\\begin{tabularx}{\\textwidth}{|X|X|X|}
-\\hline
-"""+slownik("Port zaokrętowania", jezyk)+": \\textit{"+str(rejs.port_zaokretowania)+"} & "+slownik("Data", jezyk)+": \\textit{"
-+str(rejs.data_zaokretowania)+"} & "+slownik("Pływowy", jezyk)+": \\textit{"+str(rejs.plywowy_zaokretowania)+"""} \\\\
-\\hline
-"""+slownik("Port wyokrętowania", jezyk)+": \\textit{"+str(rejs.port_wyokretowania)+"} & "+slownik("Data", jezyk)+": \\textit{"
-+str(rejs.data_wyokretowania)+"} & "+slownik("Pływowy", jezyk)+": \\textit{"+str(rejs.plywowy_wyokretowania)+"""} \\\\
-\\hline
-\\multicolumn{3}{|l|}{"""+slownik("Odwiedzone miejsca", jezyk)+":")
-
-    if rejs.odwiedzone_porty=="":
-        print("""\\dotfill} \\\\
-\\multicolumn{3}{|l|}{\\dotfill} \\\\
-\\multicolumn{3}{|l|}{\\dotfill} \\\\
-\\multicolumn{3}{|l|}{\\dotfill} \\\\
-""")
-    else:
-        tmp=rejs.odwiedzone_porty.split("\n")
-        for i in range(4):
-            if i==0:
-                print("\\textit{"+tmp[i]+"}\\dotfill}\\\\")
-            elif i<len(tmp):
-                print("\\multicolumn{3}{|l|}{\\textit{"+str(tmp[i])+"}\\dotfill} \\\\")
-            else:
-                print("\\multicolumn{3}{|l|}{\\dotfill} \\\\")
-    print("""\\hline
-\\multicolumn{2}{|l|}{"""+slownik("W tym liczba portów pływowych", jezyk)+": \\textit{"+str(rejs.liczba_portow_plywowych)
-+"}} & "+slownik("Liczba dni rejsu", jezyk)+": \\textit{"+("" if rejs.data_zaokretowania=="" or
-rejs.data_wyokretowania=="" else str((datetime.strptime(rejs.data_wyokretowania, '%d.%m.%Y')
--datetime.strptime(rejs.data_zaokretowania, '%d.%m.%Y')).days+1))+"""}\\\\
-\\hline
-\\end{tabularx}
-\\\\\\\\
-
-\\begin{tabularx}{\\textwidth}{
-|>{\\centering\\arraybackslash}X
-|>{\\centering\\arraybackslash}X"""+("""
-|>{\\centering\\arraybackslash}X""" if rejs.zagle_i_silnik!="-" else "")+"""
-|>{\\centering\\arraybackslash}X
-|>{\\centering\\arraybackslash}X
-|>{\\centering\\arraybackslash}X
-|>{\\centering\\arraybackslash}X
-|>{\\centering\\arraybackslash}X
-|}
-\\hline
-\\multicolumn{"""+("6" if rejs.zagle_i_silnik!="-" else "5")
-+"}{|c|}{"+slownik("GODZINY ŻEGLUGI", jezyk)+"} & "+slownik("GODZINY POSTOJU", jezyk)+" & \\multirow{2}{2cm}{"+slownik("PRZEBYTO MIL MORSKICH", jezyk)+"""} \\\\
-\\cline{1-"""+("7" if rejs.zagle_i_silnik!="-" else "6")+"""}
-"""+slownik("pod żaglami", jezyk)+" & "+slownik("na silniku", jezyk)+" & "+(slownik("żagle i silnik", jezyk)+" &" if rejs.zagle_i_silnik!="-" else "")+
-"\\textbf{"+slownik("razem godz. żegl.", jezyk)+"} & "+slownik("po wodach pływowych", jezyk)+" & "+slownik("powyżej", jezyk)+" $6^\\circ$B &"""+
-" "+slownik("w portach i na kotwicy", jezyk)+""" & \\\\
-\\hline
-& &"""+(" &" if rejs.zagle_i_silnik!="-" else "")+""" & & & & \\\\
-\\huge """+str(rejs.pod_zaglami)+"&\\huge "+str(rejs.na_silniku)+" &\\huge "
-+(str(rejs.zagle_i_silnik)+" &\\huge " if rejs.zagle_i_silnik!="-" else "")
-+str(rejs.razem_godz_zeglugi)+
-" &\\huge "+str(rejs.po_wodach_plywowych)+" &\\huge "+str(rejs.powyzej_6B)+" &\\huge """
-+str(rejs.w_portach_i_na_kotwicy)+" &\\huge """+str(rejs.przebyto_mil_morskich)+""" \\\\
-& &"""+(" &" if rejs.zagle_i_silnik!="-" else "")+""" & & & & \\\\
-\\hline
-\\end{tabularx}
-""")
-
-    print("\\section*{"+slownik("OPINIA KAPITANA", jezyk)+" ~~~~~~~~ $"+box(opinia_kapitana.pozytywna==0)
-    +"$ "+slownik("pozytywna", jezyk)+" ~~~~~~~~ $"+box(opinia_kapitana.pozytywna==1)+"$ "+slownik("negatywna", jezyk)+"""}
-
-\\begin{tabularx}{\\textwidth}{X X X X}
-\\multicolumn{4}{l}{\\textbf{"""+slownik("Z obowiązków wywiązywał/a się", jezyk)+""":}}\\\\
-$"""+box(opinia_kapitana.wywiazywanie_z_obowiazkow==0)+"$ "+slownik("bardzo dobrze", jezyk)+" & $"
-+box(opinia_kapitana.wywiazywanie_z_obowiazkow==1)+"$ "+slownik("dobrze", jezyk)+" & $"
-+box(opinia_kapitana.wywiazywanie_z_obowiazkow==2)+"$ "+slownik("dostatecznie", jezyk)+" & $"
-+box(opinia_kapitana.wywiazywanie_z_obowiazkow==3)+"$ "+slownik("niedostatecznie", jezyk)+"""\\\\
-\\\\
-\\multicolumn{4}{l}{\\textbf{"""+slownik("Chorobie morskiej", jezyk)+""":}}\\\\
-$"""+box(opinia_kapitana.choroba_morska==0)+"$ "+slownik("nie podlegał/a", jezyk)+" & $"
-+box(opinia_kapitana.choroba_morska==1)+"$ "+slownik("chorował/a ciężko", jezyk)+" & \\multicolumn{2}{l}{$"
-+box(opinia_kapitana.choroba_morska==2)+"$ "+slownik("chorował/a sporadycznie i mógł/mogła pracować", jezyk)+"""}\\\\
-\\\\
-\\multicolumn{4}{l}{\\textbf{"""+slownik("Odporność w trudnych warunkach", jezyk)+""":}}\\\\
-$"""+box(opinia_kapitana.odpornosc_w_trudnych_warunkach==0)+"$ "+slownik("dobra", jezyk)+" & $"
-+box(opinia_kapitana.odpornosc_w_trudnych_warunkach==1)+"$ "+slownik("dostateczna", jezyk)+" & $\\Box$ "+slownik("niedostateczna", jezyk)+" & $"
-+box(opinia_kapitana.odpornosc_w_trudnych_warunkach==2)+"$ "+slownik("nie sprawdzono", jezyk)+"""\\\\
-\\end{tabularx}
-""")
-
-    print("\\section*{"+slownik("UWAGI KAPITANA", jezyk)+"""}
-
-""")
-    tmp=opinia_kapitana.uwagi.split("\n")
-    for i in range(3):
-        if i<len(tmp):
-            print("\\textit{"+str(tmp[i])+"}\\dotfill \\\\")
-        else:
-            print(".\\dotfill \\\\")
-
-
-    print("\\section*{"+slownik("INFORMACJE O KAPITANIE", jezyk)+"""}
-
-\\begin{tabularx}{\\textwidth}{X X}
-"""+slownik("imię i nazwisko", jezyk)+": \\textit{"+str(kapitan.imie_i_nazwisko)
-+"} & "+slownik("stop. żegl./mot. i nr patentu", jezyk)+": \\textit{"+
-(kapitan.stopien_zeglarski+" "+slownik("nr", jezyk)+" "+kapitan.nr_patentu if kapitan.stopien_zeglarski+kapitan.nr_patentu
-!="......................................................" else "."*27)+"""}\\\\
-"""+slownik("nr telefonu", jezyk)+": \\textit{"+str(kapitan.nr_telefonu)+"} & e-mail: \\textit{"+str(kapitan.adres_email)
-+"""}\\\\
+    kapitan.wypisz(jezyk)
+    
+    print("""\\begin{tabularx}{\\textwidth}{X X}
 \\\\\\\\
 ...................................... & ......................................\\\\
 """+slownik("miejscowość, data", jezyk)+" & "+slownik("podpis kapitana", jezyk)+"""\\\\
 \\end{tabularx}""")
 
 
-def wypisz_karte_rejsu(jacht=Jacht(), rejs=Rejs(), uwagi_kapitana="", kapitan=Zeglarz(), zaloga=None,
+def wypisz_karte_rejsu(jacht=Jacht(), rejs=Rejs(), uwagi_kapitana="", kapitan=Kapitan(), zaloga=None,
 armator=Osoba(), logo=False, jezyk="pl"):
     """Funkcja wypisująca kartę rejsu jako kod dokumentu LaTeX"""
     if zaloga is None:
@@ -333,7 +350,7 @@ armator=Osoba(), logo=False, jezyk="pl"):
  \\textbf{KLUB ŻEGLARSKI UNIWERSYTETU WARSZAWSKIEGO} \\\\
  \\hline
  \\\\
- \\textbf{\\huge KARTA REJSU} \\\\
+ \\textbf{\\huge """+slownik("KARTA REJSU", jezyk)+"""} \\\\
  \\\\
 \\hline
 \\end{tabularx}
@@ -346,107 +363,24 @@ armator=Osoba(), logo=False, jezyk="pl"):
   | >{\\centering\\arraybackslash}X | }
  \\hline
  \\\\
- \\textbf{\\huge KARTA REJSU} \\\\
+ \\textbf{\\huge """+slownik("KARTA REJSU", jezyk)+"""} \\\\
  \\\\
 \\hline
 \\end{tabularx}
 """)
 
-    print("""\\section*{INFORMACJE O KAPITANIE}
-\\begin{tabularx}{\\textwidth}{X X X}
-imię i nazwisko: \\textit{"""+str(kapitan.imie_i_nazwisko)+"""} & stop. żegl./mot.: \\textit{"""
-+str(kapitan.stopien_zeglarski)+"""} & nr patentu: \\textit{"""+str(kapitan.nr_patentu)+"""} \\\\
-nr telefonu: \\textit{"""+str(kapitan.nr_telefonu)+"""} & e-mail: \\textit{"""
-+str(kapitan.adres_email)+"""} \\\\
-\\end{tabularx}
-""")
+    kapitan.wypisz(jezyk)
 
-    print("""\\section*{INFORMACJE O JACHCIE}
+    jacht.wypisz(jezyk)
 
-\\begin{tabularx}{\\textwidth}{X X X}
-nazwa jachtu: \\textit{"""+str(jacht.nazwa)+"""} & klasa: \\textit{"""+str(jacht.klasa)
-+"""} & nr rej.: \\textit{"""+str(jacht.nr_rej)+"""} \\\\
-lc[m]: \\textit{"""+str(jacht.lc)+"""} & port macierzysty: \\textit{"""+str(jacht.port_macierzysty)
-+"""} & moc silnika [kW]: \\textit{"""+str(jacht.moc_silnika)+"""} \\\\
-\\end{tabularx}
-""")
+    rejs.wypisz(jezyk)
 
-    print("""\\section*{INFORMACJE O REJSIE}
-
-Wpisu dokonano na podstawie dziennika jachtowego, nr pływania: \\textit{"""+str(rejs.nr_plywania)
-+"""}
-\\\\
-
-\\begin{tabularx}{\\textwidth}{|X|X|X|}
-\\hline
-Port zaokrętowania: \\textit{"""+str(rejs.port_zaokretowania)+"""} & Data: \\textit{"""
-+str(rejs.data_zaokretowania)+"""} & Pływowy: \\textit{"""+str(rejs.plywowy_zaokretowania)+"""} \\\\
-\\hline
-Port wyokrętowania: \\textit{"""+str(rejs.port_wyokretowania)+"""} & Data: \\textit{"""
-+str(rejs.data_wyokretowania)+"""} & Pływowy: \\textit{"""+str(rejs.plywowy_wyokretowania)+"""} \\\\
-\\hline
-\\multicolumn{3}{|l|}{Odwiedzone miejsca:""")
-
-    if rejs.odwiedzone_porty=="":
-        print("""\\dotfill} \\\\
-\\multicolumn{3}{|l|}{\\dotfill} \\\\
-\\multicolumn{3}{|l|}{\\dotfill} \\\\
-\\multicolumn{3}{|l|}{\\dotfill} \\\\
-""")
-    else:
-        tmp=rejs.odwiedzone_porty.split("\n")
-        for i in range(4):
-            if i==0:
-                print("\\textit{"+tmp[i]+"}\\dotfill}\\\\")
-            elif i<len(tmp):
-                print("\\multicolumn{3}{|l|}{\\textit{"+str(tmp[i])+"}\\dotfill} \\\\")
-            else:
-                print("\\multicolumn{3}{|l|}{\\dotfill} \\\\")
-    print("""\\hline
-\\multicolumn{2}{|l|}{W tym liczba portów pływowych: \\textit{"""+str(rejs.liczba_portow_plywowych)
-+"""}} & Liczba dni rejsu: \\textit{"""+
-("" if rejs.data_zaokretowania=="" or rejs.data_wyokretowania==""
-else str((datetime.strptime(rejs.data_wyokretowania, '%d.%m.%Y')
--datetime.strptime(rejs.data_zaokretowania, '%d.%m.%Y')).days+1))+"""}\\\\
-\\hline
-\\end{tabularx}
-\\\\\\\\
-
-\\begin{tabularx}{\\textwidth}{
-|>{\\centering\\arraybackslash}X
-|>{\\centering\\arraybackslash}X"""+("""
-|>{\\centering\\arraybackslash}X""" if rejs.zagle_i_silnik!="-" else "")+"""
-|>{\\centering\\arraybackslash}X
-|>{\\centering\\arraybackslash}X
-|>{\\centering\\arraybackslash}X
-|>{\\centering\\arraybackslash}X
-|>{\\centering\\arraybackslash}X
-|}
-\\hline
-\\multicolumn{"""+("6" if rejs.zagle_i_silnik!="-" else "5")
-+"""}{|c|}{GODZINY ŻEGLUGI} & GODZINY POSTOJU & \\multirow{2}{2cm}{PRZEBYTO MIL MORSKICH} \\\\
-\\cline{1-"""+("7" if rejs.zagle_i_silnik!="-" else "6")+"""}
-pod żaglami & na silniku & """+("żagle i silnik &" if rejs.zagle_i_silnik!="-" else "")+
-"""\\textbf{razem godz. żegl.} & po wodach pływowych """
-+"""& powyżej $6^\\circ$B & w portach i na kotwicy & \\\\
-\\hline
-& &"""+(" &" if rejs.zagle_i_silnik!="-" else "")+""" & & & & \\\\
-\\huge """+str(rejs.pod_zaglami)+"&\\huge "+str(rejs.na_silniku)+" &\\huge "
-+(str(rejs.zagle_i_silnik)+" &\\huge " if rejs.zagle_i_silnik!="-" else "")
-+str(rejs.razem_godz_zeglugi)+" &\\huge "+str(rejs.po_wodach_plywowych)+" &\\huge "
-+str(rejs.powyzej_6B)+" &\\huge """+str(rejs.w_portach_i_na_kotwicy)+" &\\huge """
-+str(rejs.przebyto_mil_morskich)+""" \\\\
-& &"""+(" &" if rejs.zagle_i_silnik!="-" else "")+""" & & & & \\\\
-\\hline
-\\end{tabularx}
-""")
-
-    print("""\\section*{INFORMACJE O ZAŁODZE}
+    print("\\section*{"+slownik("INFORMACJE O ZAŁODZE", jezyk)+"""}
     \\begin{tabular}{|m{0.013\\textwidth}|m{0.1727\\textwidth}|m{0.14\\textwidth}|m{0.08\\textwi"""
     +"""dth}||m{0.013\\textwidth}|m{0.1727\\textwidth}|m{0.14\\textwidth}|m{0.08\\textwidth}|}
     \\hline
-    lp. & imię i nazwisko & stopień żegl./mot. & funkcja na jachcie & lp. & imię i nazwisko &"""
-    +"""stopień żegl./mot. & funkcja na jachcie\\\\
+    """+slownik("lp.", jezyk)+" & "+slownik("imię i nazwisko", jezyk)+" & "+slownik("stop. żegl./mot.", jezyk)+" & "+slownik("funkcja", jezyk)+" & "+slownik("lp.", jezyk)+" & "+slownik("imię i nazwisko", jezyk)+" &"
+    +slownik("stop. żegl./mot.", jezyk)+" & "+slownik("funkcja", jezyk)+"""\\\\
     \\hline
     """)
     for i in range(6):
@@ -467,7 +401,7 @@ pod żaglami & na silniku & """+("żagle i silnik &" if rejs.zagle_i_silnik!="-"
     
     """)
 
-    print("""\\section*{UWAGI KAPITANA}
+    print("\\section*{"+slownik("UWAGI KAPITANA", jezyk)+"""}
 
 """)
     tmp=uwagi_kapitana.split("\n")
@@ -478,15 +412,15 @@ pod żaglami & na silniku & """+("żagle i silnik &" if rejs.zagle_i_silnik!="-"
             print(".\\dotfill \\\\")
 
 
-    print("""\\section*{INFORMACJE O ARMATORZE}
+    print("\\section*{"+slownik("INFORMACJE O ARMATORZE", jezyk)+"""}
 
 \\begin{tabularx}{\\textwidth}{X X}
-imię i nazwisko/nazwa: \\textit{"""+str(armator.imie_i_nazwisko)+"""} \\\\
-nr telefonu: \\textit{"""+str(armator.nr_telefonu)+"} & e-mail: \\textit{"
+"""+slownik("imię i nazwisko", jezyk)+"/"+slownik("nazwa", jezyk)+": \\textit{"+str(armator.imie_i_nazwisko)+"""} \\\\
+"""+slownik("nr telefonu", jezyk)+": \\textit{"+str(armator.nr_telefonu)+"} & e-mail: \\textit{"
 +str(armator.adres_email)+"""}\\\\
 \\\\\\\\
 ...................................... & ......................................\\\\
-miejscowość, data & podpis armatora jachtu\\\\
+"""+slownik("miejscowość, data", jezyk)+" & "+slownik("podpis armatora jachtu", jezyk)+"""\\\\
 \\end{tabularx}""")
 
 def wypisz_stopke():
