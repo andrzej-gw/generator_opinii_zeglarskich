@@ -66,7 +66,60 @@ def slownik(fraza, jezyk):
         return fraza
     if jezyk=="eng":
         return {
-            "OPINIA Z REJSU":"CREW MEMBER'S CERTIFICATE OF PASSAGE",
+            "OPINIA Z REJSU" : "CREW MEMBER'S CERT. OF PASSAGE",
+            "INFORMACJE O UCZESTNIKU REJSU" : "INFORMATION ABOUT THE CRUISE PARTICIPANT",
+            "imię i nazwisko" : "name \& surname",
+            "stop. żegl./mot." : "sailing/mot. cert.",
+            "nr patentu" : "cert. no.",
+            "funkcja" : "rank",
+            "INFORMACJE O JACHCIE" : "INFORMATION ABOUT YACHT",
+            "nazwa jachtu" : "name",
+            "klasa" : "type",
+            "nr rej." : "reg. no.",
+            "port macierzysty" : "home port",
+            "moc silnika" : "engine power",
+            "INFORMACJE O REJSIE" : "CRUISE INFORMATION",
+            "Wpisu dokonano na podstawie dziennika jachtowego, nr pływania" : "Based on Vessel Log Book, voyage no.",
+            "Port zaokrętowania" : "Port of embarkation",
+            "Data" : "Date",
+            "Pływowy" : "Tidal",
+            "Port wyokrętowania" : "Port of disembarkation",
+            "Odwiedzone miejsca" : "Visited places",
+            "W tym liczba portów pływowych" : "Number of tidal ports",
+            "Liczba dni rejsu" : "Number of cruise days",
+            "GODZINY ŻEGLUGI" : "UNDER WAY",
+            "GODZINY POSTOJU" : "NUMBER OF MOORING HOURS",
+            "PRZEBYTO MIL MORSKICH" : "NUMBER OF NAUTICAL MILES",
+            "pod żaglami" : "under sails",
+            "na silniku" : "using engine",
+            "żagle i silnik" : "sails and engine",
+            "razem godz. żegl." : "total under way",
+            "po wodach pływowych" : "in tidal waters",
+            "powyżej" : "over",
+            "w portach i na kotwicy" : "in harbours, on anchor",
+            "OPINIA KAPITANA" : "CAPTAIN'S OPINION",
+            "pozytywna" : "positive",
+            "negatywna" : "negative",
+            "Z obowiązków wywiązywał/a się" : "He/she fulfilled his/her duties",
+            "bardzo dobrze" : "very well", 
+            "dobrze" : "well",
+            "dostatecznie" : "sufficiently",
+            "niedostatecznie" : "insufficiently",
+            "Chorobie morskiej" : "Sea sickness",
+            "nie podlegał/a" : "no",
+            "chorował/a ciężko" : "yes",
+            "chorował/a sporadycznie i mógł/mogła pracować" : "occasionally and could work",
+            "Odporność w trudnych warunkach" : "Resistance in harsh conditions at sea",
+            "dobra" : "good",
+            "dostateczna" : "sufficient",
+            "niedostateczna" : "insufficient",
+            "nie sprawdzono" : "not verified",
+            "UWAGI KAPITANA" : "CAPTAIN'S COMMENTS",
+            "INFORMACJE O KAPITANIE" : "INFORMATION ABOUT CAPTAIN",
+            "stop. żegl./mot. i nr patentu" : "cert. of sailing/motor competency",
+            "nr telefonu" : "phone no.",
+            "miejscowość, data" : "place, date",
+            "podpis kapitana" : "captain's signature"
         }[fraza]
     assert False, "Nieznany język: "+jezyk
 
@@ -227,7 +280,7 @@ $"""+box(opinia_kapitana.wywiazywanie_z_obowiazkow==0)+"$ "+slownik("bardzo dobr
 \\\\
 \\multicolumn{4}{l}{\\textbf{"""+slownik("Chorobie morskiej", jezyk)+""":}}\\\\
 $"""+box(opinia_kapitana.choroba_morska==0)+"$ "+slownik("nie podlegał/a", jezyk)+" & $"
-+box(opinia_kapitana.choroba_morska==1)+"$ "+slownik("chorowała/a ciężko", jezyk)+" & \\multicolumn{2}{l}{$"
++box(opinia_kapitana.choroba_morska==1)+"$ "+slownik("chorował/a ciężko", jezyk)+" & \\multicolumn{2}{l}{$"
 +box(opinia_kapitana.choroba_morska==2)+"$ "+slownik("chorował/a sporadycznie i mógł/mogła pracować", jezyk)+"""}\\\\
 \\\\
 \\multicolumn{4}{l}{\\textbf{"""+slownik("Odporność w trudnych warunkach", jezyk)+""":}}\\\\
