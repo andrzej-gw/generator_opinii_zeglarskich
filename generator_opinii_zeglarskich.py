@@ -64,7 +64,10 @@ def slownik(fraza, jezyk):
             "INFORMACJE O ZAŁODZE" : "INFORMATION ABOUT CREW",
             "lp." : "no.",
             "INFORMACJE O ARMATORZE" : "INFORMATION ABOUT OWNER",
-            "podpis armatora jachtu" : "owner's signature"
+            "podpis armatora jachtu" : "owner's signature",
+            "TAK" : "YES",
+            "NIE" : "NO",
+            "TAK/NIE" : "YES/NO"
         }[fraza]
     assert False, "Nieznany język: "+jezyk
 
@@ -135,10 +138,10 @@ class Rejs:
     nr_plywania: str = "."*27
     data_zaokretowania: str = ""
     port_zaokretowania: str = ""
-    plywowy_zaokretowania: str = ""
+    plywowy_zaokretowania: str = "TAK/NIE"
     data_wyokretowania: str = ""
     port_wyokretowania: str = ""
-    plywowy_wyokretowania: str = ""
+    plywowy_wyokretowania: str = "TAK/NIE"
     odwiedzone_porty: str = ""
     liczba_portow_plywowych: str = ""
     pod_zaglami: str = ""
@@ -159,10 +162,10 @@ class Rejs:
 \\begin{tabularx}{\\textwidth}{|X|X|X|}
 \\hline
 """+slownik("Port zaokrętowania", jezyk)+": \\textit{"+str(self.port_zaokretowania)+"} & "+slownik("Data", jezyk)+": \\textit{"
-+str(self.data_zaokretowania)+"} & "+slownik("Pływowy", jezyk)+": \\textit{"+str(self.plywowy_zaokretowania)+"""} \\\\
++str(self.data_zaokretowania)+"} & "+slownik("Pływowy", jezyk)+": \\textit{"+slownik(self.plywowy_zaokretowania, jezyk)+"""} \\\\
 \\hline
 """+slownik("Port wyokrętowania", jezyk)+": \\textit{"+str(self.port_wyokretowania)+"} & "+slownik("Data", jezyk)+": \\textit{"
-+str(self.data_wyokretowania)+"} & "+slownik("Pływowy", jezyk)+": \\textit{"+str(self.plywowy_wyokretowania)+"""} \\\\
++str(self.data_wyokretowania)+"} & "+slownik("Pływowy", jezyk)+": \\textit{"+slownik(self.plywowy_wyokretowania, jezyk)+"""} \\\\
 \\hline
 \\multicolumn{3}{|l|}{"""+slownik("Odwiedzone miejsca", jezyk)+":")
 
