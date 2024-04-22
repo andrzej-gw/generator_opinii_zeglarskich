@@ -386,12 +386,12 @@ armator=Osoba(), logo=False, jezyk="pl"):
     for i in range(6):
         if len(zaloga)>i:
             print(i+1, "&", zaloga[i].imie_i_nazwisko, "&", zaloga[i].stopien_zeglarski, "&",
-            zaloga[i].funkcja, "&", end="")
+            (zaloga[i].funkcja if "."*27!=zaloga[i].funkcja else ""), "&", end="")
         else:
             print("&&&&", end="")
         if len(zaloga)>i+6:
             print(i+7, "&", zaloga[i+6].imie_i_nazwisko, "&", zaloga[i+6].stopien_zeglarski, "&",
-            zaloga[i+6].funkcja, end="")
+            (zaloga[i+6].funkcja if "."*27!=zaloga[i+6].funkcja else ""), end="")
         else:
             print("&&&", end="")
         print("""\\\\
