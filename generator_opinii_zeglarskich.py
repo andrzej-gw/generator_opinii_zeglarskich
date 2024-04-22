@@ -135,10 +135,10 @@ class Rejs:
     nr_plywania: str = "."*27
     data_zaokretowania: str = ""
     port_zaokretowania: str = ""
-    plywowy_zaokretowania: str = "TAK/NIE"
+    plywowy_zaokretowania: str = ""
     data_wyokretowania: str = ""
     port_wyokretowania: str = ""
-    plywowy_wyokretowania: str = "TAK/NIE"
+    plywowy_wyokretowania: str = ""
     odwiedzone_porty: str = ""
     liczba_portow_plywowych: str = ""
     pod_zaglami: str = ""
