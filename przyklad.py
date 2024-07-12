@@ -26,8 +26,8 @@ for z in DANE_ZALOGI:
         funkcja = z[6])
     )
 
-kapitan = Kapitan(imie_i_nazwisko = "Andrzej Gwiazda", stopien_zeglarski = "JSM",
-nr_patentu = "PU/8243", nr_telefonu = "+48 788 132 046", adres_email = "jedrekgwiazda@gmail.com")
+kapitan = Kapitan(imie_i_nazwisko = "Andrzej Gwiazda", stopien_zeglarski = "Kapitan Jachtowy",
+nr_patentu = "4052", nr_telefonu = "+48 788 132 046", adres_email = "jedrekgwiazda@gmail.com")
 
 jacht=Jacht(nazwa="s/y Figaro", typ="Bavaria 45 BT ‘12")
 
