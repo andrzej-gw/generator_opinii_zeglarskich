@@ -64,7 +64,10 @@ def slownik(fraza, jezyk):
             "INFORMACJE O ZAŁODZE" : "INFORMATION ABOUT CREW",
             "lp." : "no.",
             "INFORMACJE O ARMATORZE" : "INFORMATION ABOUT OWNER",
-            "podpis armatora jachtu" : "owner's signature"
+            "podpis armatora jachtu" : "owner's signature",
+            "TAK" : "YES",
+            "NIE" : "NO",
+            "TAK/NIE" : "YES/NO"
         }[fraza]
     assert False, "Nieznany język: "+jezyk
 
@@ -159,10 +162,10 @@ class Rejs:
 \\begin{tabularx}{\\textwidth}{|X|X|X|}
 \\hline
 """+slownik("Port zaokrętowania", jezyk)+": \\textit{"+str(self.port_zaokretowania)+"} & "+slownik("Data", jezyk)+": \\textit{"
-+str(self.data_zaokretowania)+"} & "+slownik("Pływowy", jezyk)+": \\textit{"+str(self.plywowy_zaokretowania)+"""} \\\\
++str(self.data_zaokretowania)+"} & "+slownik("Pływowy", jezyk)+": \\textit{"+slownik(self.plywowy_zaokretowania, jezyk)+"""} \\\\
 \\hline
 """+slownik("Port wyokrętowania", jezyk)+": \\textit{"+str(self.port_wyokretowania)+"} & "+slownik("Data", jezyk)+": \\textit{"
-+str(self.data_wyokretowania)+"} & "+slownik("Pływowy", jezyk)+": \\textit{"+str(self.plywowy_wyokretowania)+"""} \\\\
++str(self.data_wyokretowania)+"} & "+slownik("Pływowy", jezyk)+": \\textit{"+slownik(self.plywowy_wyokretowania, jezyk)+"""} \\\\
 \\hline
 \\multicolumn{3}{|l|}{"""+slownik("Odwiedzone miejsca", jezyk)+":")
 
@@ -386,12 +389,12 @@ armator=Osoba(), logo=False, jezyk="pl"):
     for i in range(6):
         if len(zaloga)>i:
             print(i+1, "&", zaloga[i].imie_i_nazwisko, "&", zaloga[i].stopien_zeglarski, "&",
-            zaloga[i].funkcja, "&", end="")
+            (zaloga[i].funkcja if "."*27!=zaloga[i].funkcja else ""), "&", end="")
         else:
             print("&&&&", end="")
         if len(zaloga)>i+6:
             print(i+7, "&", zaloga[i+6].imie_i_nazwisko, "&", zaloga[i+6].stopien_zeglarski, "&",
-            zaloga[i+6].funkcja, end="")
+            (zaloga[i+6].funkcja if "."*27!=zaloga[i+6].funkcja else ""), end="")
         else:
             print("&&&", end="")
         print("""\\\\
