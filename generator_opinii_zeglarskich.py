@@ -408,12 +408,17 @@ armator=Osoba(), logo=False, jezyk="pl"):
 
 """)
     tmp=uwagi_kapitana.split("\n")
-    for i in range(3):
+    for i in range(2):
         if i<len(tmp):
             print("\\textit{"+str(tmp[i])+"}\\dotfill \\\\")
         else:
             print(".\\dotfill \\\\")
 
+    print("""\\begin{tabularx}{\\textwidth}{X X}
+\\\\\\
+...................................... & ......................................\\\\
+"""+slownik("miejscowość, data", jezyk)+" & "+slownik("podpis kapitana", jezyk)+"""\\\\
+\\end{tabularx}""")
 
     print("\\section*{"+slownik("INFORMACJE O ARMATORZE", jezyk)+"""}
 
