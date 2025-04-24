@@ -408,7 +408,7 @@ def wypisz_mayday(jacht=Jacht(), logo = False):
           \\textbf{Rodzaje zagrożeń:}
 
           \\begin{multicols}{2}
-\\begin{itemize}[leftmargin=*]
+\\begin{enumerate}[leftmargin=*]
     \\item \\textbf{SINKING} -- tonięcie
     \\item \\textbf{CAPSIZING} -- wywrotka
     \\item \\textbf{ABANDONING} -- opuszczenie statku
@@ -421,7 +421,7 @@ def wypisz_mayday(jacht=Jacht(), logo = False):
     \\item \\textbf{COLLISION} -- kolizja
     \\item \\textbf{FIRE} -- pożar
     \\item \\textbf{UNDESIGNATED} -- nieoznaczone
-\\end{itemize}
+\\end{enumerate}
 \\end{multicols}
           \\end{minipage}
  }""")
