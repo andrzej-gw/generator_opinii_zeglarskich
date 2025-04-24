@@ -1,6 +1,6 @@
 """Moduł zwierający klasy i funkcje do generowania opinii."""
 from generator_opinii_zeglarskich import (Zalogant, Zeglarz, Kapitan, Jacht, Rejs,
-OpiniaKapitana, Osoba, wypisz_karte_rejsu, wypisz_naglowek, wypisz_opinie, wypisz_stopke)
+OpiniaKapitana, Osoba, wypisz_karte_rejsu, wypisz_naglowek, wypisz_opinie, wypisz_stopke, wypisz_mayday, wypisz_TabelkaWachtowa)
 
 #dane zalogi mozna wziac np. z arkusza i odpowiednio sformatowac
 DANE_ZALOGI = """Jan Kowalski	ISNS	654345643	jan.kowalski@op.pl	żeglarz jachtowy	PU/43543	załoga
@@ -86,6 +86,9 @@ wypisz_opinie(jezyk="eng")
 wypisz_karte_rejsu(jezyk="eng")
 wypisz_opinie(jezyk="eng", logo=True)
 wypisz_karte_rejsu(jezyk="eng", logo=True)
+
+wypisz_mayday(jacht=jacht, logo = True)
+wypisz_TabelkaWachtowa(4,7,logo=True)
 
 #stopka potrzebna jest do zakonczenia dokumentu .tex (wywolac dokladnie raz na koncu)
 wypisz_stopke()

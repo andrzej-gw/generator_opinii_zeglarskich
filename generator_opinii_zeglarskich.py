@@ -121,6 +121,8 @@ class Jacht:
     lc: str = "."*27
     port_macierzysty: str = "."*27
     moc_silnika: str = "."*27
+    call_sign: str = "."*27
+    mmsi: str = "."*27
     def wypisz(self, jezyk):
         print("\\section*{"+slownik("INFORMACJE O JACHCIE", jezyk)+"""}
 
@@ -171,7 +173,6 @@ class Rejs:
 
         if self.odwiedzone_porty=="":
             print("""\\dotfill} \\\\
-\\multicolumn{3}{|l|}{\\dotfill} \\\\
 \\multicolumn{3}{|l|}{\\dotfill} \\\\
 \\multicolumn{3}{|l|}{\\dotfill} \\\\
 """)
@@ -277,13 +278,154 @@ def wypisz_naglowek():
 \\usepackage{multirow}
 \\usepackage{tabularx}
 \\usepackage{wasysym}
+\\usepackage{enumitem}
+\\usepackage[T1]{fontenc}
+\\usepackage{geometry}
+\\usepackage{fancybox}
+\\usepackage{multicol}
 
 \\setlength{\\parindent}{0pt}
 \\author{Andrzej Gwiazda}
 \\pagenumbering{gobble}
+\\begin{document}""")
 
-\\begin{document}
+def header(logo = False, title = ""):
+    if logo:
+        print("""\\newpage
+        \\begin{minipage}{0.11\\textwidth}
+        \\includegraphics[width=\\textwidth]{logo.png}
+        \\end{minipage}
+        \\begin{minipage}{0.89\\textwidth}
+        \\begin{tabularx}{\\textwidth} { 
+        | >{\\centering\\arraybackslash}X | }
+        \\hline
+        \\textbf{KLUB ŻEGLARSKI UNIWERSYTETU WARSZAWSKIEGO} \\\\
+        \\hline
+        \\\\
+        \\textbf{\\huge """+title+"""} \\\\
+        \\\\
+        \\hline
+        \\end{tabularx}
+        \\end{minipage}
+        """)
+    else:
+        print("""\\newpage
+        \\begin{tabularx}{\\textwidth} { 
+        | >{\\centering\\arraybackslash}X | }
+        \\hline
+        \\\\
+        \\textbf{\\huge """+title+"""} \\\\
+        \\\\
+        \\hline
+        \\end{tabularx}
+        """)
+
+def wypisz_TabelkaWachtowa(n : int,m : int, startingHour : int = 0,logo = False):
+    """Funkcja wypisująca tabelkę wachtową jako kod dokumentu LaTeX"""
+    header(logo, "Wachty :)")
+    print("\\vspace{2em}")
+    cell_width = str(18//m)+"cm"
+    cell_height = str(16//n)+"cm"
+    column_format = "|".join([f"p{{{cell_width}}}"] * m)
+    latex = "\\begin{center}\n"
+    latex += f"\\begin{{tabular}}{{|{column_format}|}}\n\\hline\n"
+    for _ in range(n):
+        row = " & ".join([f"\\rule{{0pt}}{{{cell_height}}}" for _ in range(m)])
+        latex += row + " \\\\\n\\hline\n"
+    latex += "\\end{tabular}\n\\end{center}"
+    print(latex)
+    print("\\vspace{2em}")
+    print("\\textbf{składy wachtowe:}")
+
+    cell_height = "4cm"
+    number_col_width = str(15//(m-1)) + "cm"
+    latex = "\\begin{center}\n"
+    # Format: one narrow column for numbers, then wide for content
+    col_format = "|".join([f"p{{{number_col_width}}}"] * (m-1))
+    latex += f"\\begin{{tabular}}{{|{col_format}|}}\n\\hline\n"
+
+    # Row 1: numbers
+    row_numbers = " & ".join(str(i) for i in range(1, m))
+    latex += row_numbers + " \\\\\n\\hline\n"
+
+    # Row 2: writing cells (taller)
+    row_cells = " & ".join([f"\\rule{{0pt}}{{{cell_height}}}" for _ in range(m-1)])
+    latex += row_cells + " \\\\\n\\hline\n"
+
+    latex += "\\end{tabular}\n\\end{center}"
+    print(latex)
+
+def wypisz_mayday(jacht=Jacht(), logo = False):
+    """Funkcja wypisująca komunikat mayday jako kod dokumentu LaTeX"""
+    header(logo, "Jak wzywać pomoc???")
+
+    print("""
+          \\vspace{2em}
+          \\doublebox{
+\\begin{minipage}{0.95\\textwidth}
+          \\begin{enumerate}
+    \\item Upewnij się, że radio jest włączone
+    \\item Zaprogramuj rodzaj zagrożenia (jeśli jest czas)
+    \\item Wciśnij i przytrzymaj czerwony przycisk DISTRESS
+    \\item Poczekaj (nie dłużej niż 15 sekund) na potwierdzenie odbioru
+    \\item Nadaj na kanale 16 na pełnej mocy komunikat:
+    \\end{enumerate} 
+         \\end{minipage}
+ }
+                    \\vspace{2em}
 """)
+
+    
+    print("""\\doublebox{
+    \\begin{minipage}{0.95\\textwidth}
+    \\textbf{MAYDAY, MAYDAY, MAYDAY} \\\\
+    \\textbf{THIS IS} \\underline{""" + jacht.nazwa + """}, \\underline{""" + jacht.nazwa + """}, \\underline{""" + jacht.nazwa + """} \\\\
+
+    \\textbf{CALL SIGN} \\underline{""" + jacht.call_sign + """}, \\textbf{MMSI} \\underline{""" + jacht.mmsi + """} \\\\
+
+    \\textbf{MAYDAY THIS IS} \\underline{""" + jacht.nazwa + """} \\\\
+
+    \\textbf{MY POSITION} \\underline{\\hspace{12cm}} \\\\
+    (Podaj swoją aktualną pozycję) \\\\
+
+    \\textbf{I AM} \\underline{\\hspace{12cm}} \\\\
+    (Podaj rodzaj zagrożenia) \\\\
+
+    \\textbf{I REQUIRE IMMEDIATE ASSISTANCE} \\\\
+    \\textbf{I HAVE} \\underline{\hspace{2cm}} \\textbf{PERSON ON BOARD} \\\\
+    (Podaj ilość osób na pokładzie) \\\\
+
+    \\underline{\\hspace{12cm}} \\\\
+    (Podaj inne informacje, kolor kadłuba, rodzaj jachtu itp.) \\\\
+
+    \\textbf{OVER}
+    \\end{minipage}
+    }""")
+
+    print("""
+          \\vspace{2em}
+\\doublebox{
+\\begin{minipage}{0.95\\textwidth}
+          \\textbf{Rodzaje zagrożeń:}
+
+          \\begin{multicols}{2}
+\\begin{itemize}[leftmargin=*]
+    \\item \\textbf{SINKING} -- tonięcie
+    \\item \\textbf{CAPSIZING} -- wywrotka
+    \\item \\textbf{ABANDONING} -- opuszczenie statku
+    \\item \\textbf{FLOODING} -- zalewanie
+    \\item \\textbf{DISABLED \& ADRIFT} -- niezdolność do żeglugi
+    \\item \\textbf{LISTING} -- przechył boczny
+    \\item \\textbf{MAN OVER BOARD} -- człowiek za burtą
+    \\item \\textbf{GROUNDING} -- mielizna
+    \\item \\textbf{PIRACY} -- piraci
+    \\item \\textbf{COLLISION} -- kolizja
+    \\item \\textbf{FIRE} -- pożar
+    \\item \\textbf{UNDESIGNATED} -- nieoznaczone
+\\end{itemize}
+\\end{multicols}
+          \\end{minipage}
+ }""")
 
 def wypisz_opinie(zalogant=Zalogant(), jacht=Jacht(), rejs=Rejs(),
 opinia_kapitana=OpiniaKapitana(), kapitan=Kapitan(), logo=False, jezyk="pl"):
