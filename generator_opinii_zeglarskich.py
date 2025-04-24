@@ -175,6 +175,7 @@ class Rejs:
             print("""\\dotfill} \\\\
 \\multicolumn{3}{|l|}{\\dotfill} \\\\
 \\multicolumn{3}{|l|}{\\dotfill} \\\\
+\\multicolumn{3}{|l|}{\\dotfill} \\\\
 """)
         else:
             tmp=self.odwiedzone_porty.split("\n")
