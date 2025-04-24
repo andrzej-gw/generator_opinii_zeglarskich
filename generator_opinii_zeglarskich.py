@@ -280,8 +280,6 @@ def wypisz_naglowek():
 \\usepackage{tabularx}
 \\usepackage{wasysym}
 \\usepackage{enumitem}
-\\usepackage[T1]{fontenc}
-\\usepackage{geometry}
 \\usepackage{fancybox}
 \\usepackage{multicol}
 
