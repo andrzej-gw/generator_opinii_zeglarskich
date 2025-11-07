@@ -86,7 +86,7 @@ class AutoSmall:
                     elif len(wartosc)>5:
                         setattr(self, pole.name, f"\\small{{{wartosc}}}")
                 elif not pole.name in ["odwiedzone_porty", "uwagi"]:
-                    if len(wartosc) > 23:
+                    if len(wartosc) > 22:
                         setattr(self, pole.name, f"\\tiny{{{wartosc}}}")
                     elif len(wartosc) > 15:
                         setattr(self, pole.name, f"\\footnotesize{{{wartosc}}}")
