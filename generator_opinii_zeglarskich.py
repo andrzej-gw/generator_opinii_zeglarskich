@@ -567,12 +567,12 @@ armator=Osoba(), logo=False, jezyk="pl"):
     for i in range(6):
         if len(zaloga)>i:
             print(i+1, "&\\texttt{", zaloga[i].imie_i_nazwisko, "}&\\texttt{", zaloga[i].stopien_zeglarski, "}&\\texttt{",
-            (zaloga[i].funkcja if "."*15 in zaloga[i].funkcja else ""), "}&", end="")
+            (zaloga[i].funkcja if (not "."*15 in zaloga[i].funkcja) else ""), "}&", end="")
         else:
             print("&&&&", end="")
         if len(zaloga)>i+6:
             print(i+7, "&\\texttt{", zaloga[i+6].imie_i_nazwisko, "}&\\texttt{", zaloga[i+6].stopien_zeglarski, "}&\\texttt{",
-            (zaloga[i+6].funkcja if "."*15 in zaloga[i+6].funkcja else ""), end="}")
+            (zaloga[i+6].funkcja if (not "."*15 in zaloga[i+6].funkcja) else ""), end="}")
         else:
             print("&&&", end="")
         print("""\\\\
