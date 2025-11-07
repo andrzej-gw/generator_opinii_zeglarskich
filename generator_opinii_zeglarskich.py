@@ -72,7 +72,37 @@ def slownik(fraza, jezyk):
     assert False, "Nieznany język: "+jezyk
 
 @dataclasses.dataclass
-class Osoba:
+class AutoSmall:
+    """Mixin zmieniający długie napisy na \\small{}"""
+    def __post_init__(self):
+        for pole in dataclasses.fields(self):
+            wartosc = getattr(self, pole.name)
+            if isinstance(wartosc, str):
+                if pole.name == "funkcja":
+                    if len(wartosc)>8:
+                        setattr(self, pole.name, f"\\scriptsize{{{wartosc}}}")
+                    elif len(wartosc)>7:
+                        setattr(self, pole.name, f"\\footnotesize{{{wartosc}}}")
+                    elif len(wartosc)>5:
+                        setattr(self, pole.name, f"\\small{{{wartosc}}}")
+                elif not pole.name in ["odwiedzone_porty", "uwagi"]:
+                    if len(wartosc) > 35:
+                        setattr(self, pole.name, f"\\tiny{{{wartosc}}}")
+                    elif len(wartosc) > 15:
+                        setattr(self, pole.name, f"\\footnotesize{{{wartosc}}}")
+                    elif len(wartosc) > 13:
+                        setattr(self, pole.name, f"\\small{{{wartosc}}}")
+
+        # POZWALA NA KONTYNUACJĘ W DZIEDZICZENIU
+        if hasattr(super(), "__post_init__"):
+            try:
+                super().__post_init__()
+            except TypeError:
+                # gdy super() nie ma post_init
+                pass
+
+@dataclasses.dataclass
+class Osoba(AutoSmall):
     """Klasa reprezentująca osobę"""
     imie_i_nazwisko: str = "."*15
     nr_telefonu: str = "."*15
@@ -113,7 +143,7 @@ nr telefonu: \\texttt{"""+str(self.nr_telefonu)+"""} & e-mail: \\texttt{"""
 """)
 
 @dataclasses.dataclass
-class Jacht:
+class Jacht(AutoSmall):
     """Klasa reprezentująca jacht, zawierająca dane techniczne"""
     nazwa: str = "."*15
     typ: str = "."*15
@@ -135,7 +165,7 @@ lc[m]: \\texttt{"""+str(self.lc)+"} & "+slownik("port macierzysty", jezyk)+": \\
 """)
 
 @dataclasses.dataclass
-class Rejs:
+class Rejs(AutoSmall):
     """Klasa reprezentująca rejs, zawiera informacje o portach i liczby godzin"""
     nr_plywania: str = "."*15
     data_zaokretowania: str = ""
@@ -225,7 +255,7 @@ self.data_wyokretowania=="" else str((datetime.strptime(self.data_wyokretowania,
 """)
 
 @dataclasses.dataclass
-class OpiniaKapitana:
+class OpiniaKapitana(AutoSmall):
     """Klasa reprezentująca opinię kapitana"""
     pozytywna: int=None
     wywiazywanie_z_obowiazkow: int = None
@@ -557,7 +587,7 @@ armator=Osoba(), logo=False, jezyk="pl"):
 
     print("""\\begin{tabularx}{\\textwidth}{X X}
 \\\\\\
-...................................... & ......................................\\\\
+\\texttt{....................} & \\texttt{....................}\\\\
 """+slownik("miejscowość, data", jezyk)+" & "+slownik("podpis kapitana", jezyk)+"""\\\\
 \\end{tabularx}""")
 
@@ -568,7 +598,7 @@ armator=Osoba(), logo=False, jezyk="pl"):
 """+slownik("nr telefonu", jezyk)+": \\texttt{"+str(armator.nr_telefonu)+"} & e-mail: \\texttt{"
 +str(armator.adres_email)+"""}\\\\
 \\\\\\\\
-...................................... & ......................................\\\\
+\\texttt{....................} & \\texttt{....................}\\\\
 """+slownik("miejscowość, data", jezyk)+" & "+slownik("podpis armatora jachtu", jezyk)+"""\\\\
 \\end{tabularx}""")
 
