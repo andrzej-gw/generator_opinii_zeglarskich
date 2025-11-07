@@ -74,28 +74,28 @@ def slownik(fraza, jezyk):
 @dataclasses.dataclass
 class Osoba:
     """Klasa reprezentująca osobę"""
-    imie_i_nazwisko: str = "."*27
-    nr_telefonu: str = "."*27
-    adres_email: str = "."*27
+    imie_i_nazwisko: str = "."*15
+    nr_telefonu: str = "."*15
+    adres_email: str = "."*15
 
 @dataclasses.dataclass
 class Zeglarz(Osoba):
     """Klasa reprezentująca żeglarza. Dziedziczy po osobie, ma dodatkowe parametry: stopień
     żeglarski i nr patentu"""
-    stopien_zeglarski: str = "."*27
-    nr_patentu: str = "."*27
+    stopien_zeglarski: str = "."*15
+    nr_patentu: str = "."*15
 
 @dataclasses.dataclass
 class Zalogant(Zeglarz):
     """Klasa reprezentująca załoganta. Dziedziczy po żeglarzu, ma dodatkowy parametr: funkcja"""
-    funkcja: str = "."*27
+    funkcja: str = "."*15
     def wypisz(self, jezyk):
         print("""\\section*{"""+slownik("INFORMACJE O UCZESTNIKU REJSU", jezyk)+"""}
 \\begin{tabularx}{\\textwidth}{X X X}
-"""+slownik("imię i nazwisko", jezyk)+": \\textit{"+str(self.imie_i_nazwisko)+"} & "+slownik("stop. żegl./mot.", jezyk)+": \\textit{"+
-str(self.stopien_zeglarski)+"} & "+slownik("nr patentu", jezyk)+": \\textit{"+str(self.nr_patentu)+"""} \\\\
-nr telefonu: \\textit{"""+str(self.nr_telefonu)+"""} & e-mail: \\textit{"""
-+str(self.adres_email)+"} & "+slownik("funkcja", jezyk)+": \\textit{"+str(self.funkcja)+"""} \\\\
+"""+slownik("imię i nazwisko", jezyk)+": \\texttt{"+str(self.imie_i_nazwisko)+"} & "+slownik("stop. żegl./mot.", jezyk)+": \\texttt{"+
+str(self.stopien_zeglarski)+"} & "+slownik("nr patentu", jezyk)+": \\texttt{"+str(self.nr_patentu)+"""} \\\\
+nr telefonu: \\texttt{"""+str(self.nr_telefonu)+"""} & e-mail: \\texttt{"""
++str(self.adres_email)+"} & "+slownik("funkcja", jezyk)+": \\texttt{"+str(self.funkcja)+"""} \\\\
 \\end{tabularx}
 """)
 
@@ -105,9 +105,9 @@ class Kapitan(Zeglarz):
     def wypisz(self, jezyk):
         print("""\\section*{"""+slownik("INFORMACJE O KAPITANIE", jezyk)+"""}
 \\begin{tabularx}{\\textwidth}{X X X}
-"""+slownik("imię i nazwisko", jezyk)+": \\textit{"+str(self.imie_i_nazwisko)+"} & "+slownik("stop. żegl./mot.", jezyk)+": \\textit{"+
-str(self.stopien_zeglarski)+"} & "+slownik("nr patentu", jezyk)+": \\textit{"+str(self.nr_patentu)+"""} \\\\
-nr telefonu: \\textit{"""+str(self.nr_telefonu)+"""} & e-mail: \\textit{"""
+"""+slownik("imię i nazwisko", jezyk)+": \\texttt{"+str(self.imie_i_nazwisko)+"} & "+slownik("stop. żegl./mot.", jezyk)+": \\texttt{"+
+str(self.stopien_zeglarski)+"} & "+slownik("nr patentu", jezyk)+": \\texttt{"+str(self.nr_patentu)+"""} \\\\
+nr telefonu: \\texttt{"""+str(self.nr_telefonu)+"""} & e-mail: \\texttt{"""
 +str(self.adres_email)+"""} \\\\
 \\end{tabularx}
 """)
@@ -115,29 +115,29 @@ nr telefonu: \\textit{"""+str(self.nr_telefonu)+"""} & e-mail: \\textit{"""
 @dataclasses.dataclass
 class Jacht:
     """Klasa reprezentująca jacht, zawierająca dane techniczne"""
-    nazwa: str = "."*27
-    typ: str = "."*27
-    nr_rej: str = "."*27
-    lc: str = "."*27
-    port_macierzysty: str = "."*27
-    moc_silnika: str = "."*27
-    call_sign: str = "."*27
-    mmsi: str = "."*27
+    nazwa: str = "."*15
+    typ: str = "."*15
+    nr_rej: str = "."*15
+    lc: str = "."*15
+    port_macierzysty: str = "."*15
+    moc_silnika: str = "."*15
+    call_sign: str = "."*15
+    mmsi: str = "."*15
     def wypisz(self, jezyk):
         print("\\section*{"+slownik("INFORMACJE O JACHCIE", jezyk)+"""}
 
 \\begin{tabularx}{\\textwidth}{X X X}
-"""+slownik("nazwa", jezyk)+": \\textit{"+str(self.nazwa)+"} & "+slownik("typ", jezyk)+": \\textit{"
-+str(self.typ)+"} & "+slownik("nr rej.", jezyk)+": \\textit{"+str(self.nr_rej)+"""} \\\\
-lc[m]: \\textit{"""+str(self.lc)+"} & "+slownik("port macierzysty", jezyk)+": \\textit{"+str(self.port_macierzysty)
-+"} & "+slownik("moc silnika", jezyk)+" [kW]: \\textit{"+str(self.moc_silnika)+"""} \\\\
+"""+slownik("nazwa", jezyk)+": \\texttt{"+str(self.nazwa)+"} & "+slownik("typ", jezyk)+": \\texttt{"
++str(self.typ)+"} & "+slownik("nr rej.", jezyk)+": \\texttt{"+str(self.nr_rej)+"""} \\\\
+lc[m]: \\texttt{"""+str(self.lc)+"} & "+slownik("port macierzysty", jezyk)+": \\texttt{"+str(self.port_macierzysty)
++"} & "+slownik("moc silnika", jezyk)+" [kW]: \\texttt{"+str(self.moc_silnika)+"""} \\\\
 \\end{tabularx}
 """)
 
 @dataclasses.dataclass
 class Rejs:
     """Klasa reprezentująca rejs, zawiera informacje o portach i liczby godzin"""
-    nr_plywania: str = "."*27
+    nr_plywania: str = "."*15
     data_zaokretowania: str = ""
     port_zaokretowania: str = ""
     plywowy_zaokretowania: str = "TAK/NIE"
@@ -157,17 +157,17 @@ class Rejs:
     def wypisz(self, jezyk):
         print("\\section*{"+slownik("INFORMACJE O REJSIE", jezyk)+"""}
 
-"""+slownik("Wpisu dokonano na podstawie dziennika jachtowego, nr pływania", jezyk)+": \\textit{"+str(self.nr_plywania)
+"""+slownik("Wpisu dokonano na podstawie dziennika jachtowego, nr pływania", jezyk)+": \\texttt{"+str(self.nr_plywania)
 +"""}
 \\\\
 
 \\begin{tabularx}{\\textwidth}{|X|X|X|}
 \\hline
-"""+slownik("Port zaokrętowania", jezyk)+": \\textit{"+str(self.port_zaokretowania)+"} & "+slownik("Data", jezyk)+": \\textit{"
-+str(self.data_zaokretowania)+"} & "+slownik("Pływowy", jezyk)+": \\textit{"+slownik(self.plywowy_zaokretowania, jezyk)+"""} \\\\
+"""+slownik("Port zaokrętowania", jezyk)+": \\texttt{"+str(self.port_zaokretowania)+"} & "+slownik("Data", jezyk)+": \\texttt{"
++str(self.data_zaokretowania)+"} & "+slownik("Pływowy", jezyk)+": \\texttt{"+slownik(self.plywowy_zaokretowania, jezyk)+"""} \\\\
 \\hline
-"""+slownik("Port wyokrętowania", jezyk)+": \\textit{"+str(self.port_wyokretowania)+"} & "+slownik("Data", jezyk)+": \\textit{"
-+str(self.data_wyokretowania)+"} & "+slownik("Pływowy", jezyk)+": \\textit{"+slownik(self.plywowy_wyokretowania, jezyk)+"""} \\\\
+"""+slownik("Port wyokrętowania", jezyk)+": \\texttt{"+str(self.port_wyokretowania)+"} & "+slownik("Data", jezyk)+": \\texttt{"
++str(self.data_wyokretowania)+"} & "+slownik("Pływowy", jezyk)+": \\texttt{"+slownik(self.plywowy_wyokretowania, jezyk)+"""} \\\\
 \\hline
 \\multicolumn{3}{|l|}{"""+slownik("Odwiedzone miejsca", jezyk)+":")
 
@@ -181,14 +181,14 @@ class Rejs:
             tmp=self.odwiedzone_porty.split("\n")
             for i in range(4):
                 if i==0:
-                    print("\\textit{"+tmp[i]+"}\\dotfill}\\\\")
+                    print("\\texttt{"+tmp[i]+"}\\dotfill}\\\\")
                 elif i<len(tmp):
-                    print("\\multicolumn{3}{|l|}{\\textit{"+str(tmp[i])+"}\\dotfill} \\\\")
+                    print("\\multicolumn{3}{|l|}{\\texttt{"+str(tmp[i])+"}\\dotfill} \\\\")
                 else:
                     print("\\multicolumn{3}{|l|}{\\dotfill} \\\\")
         print("""\\hline
-\\multicolumn{2}{|l|}{"""+slownik("W tym liczba portów pływowych", jezyk)+": \\textit{"+str(self.liczba_portow_plywowych)
-+"}} & "+slownik("Liczba dni rejsu", jezyk)+": \\textit{"+("" if self.data_zaokretowania=="" or
+\\multicolumn{2}{|l|}{"""+slownik("W tym liczba portów pływowych", jezyk)+": \\texttt{"+str(self.liczba_portow_plywowych)
++"}} & "+slownik("Liczba dni rejsu", jezyk)+": \\texttt{"+("" if self.data_zaokretowania=="" or
 self.data_wyokretowania=="" else str((datetime.strptime(self.data_wyokretowania, '%d.%m.%Y')
 -datetime.strptime(self.data_zaokretowania, '%d.%m.%Y')).days+1))+"""}\\\\
 \\hline
@@ -264,7 +264,7 @@ $"""+box(self.odpornosc_w_trudnych_warunkach==0)+"$ "+slownik("dobra", jezyk)+" 
         tmp=self.uwagi.split("\n")
         for i in range(3):
             if i<len(tmp):
-                print("\\textit{"+str(tmp[i])+"}\\dotfill \\\\")
+                print("\\texttt{"+str(tmp[i])+"}\\dotfill \\\\")
             else:
                 print(".\\dotfill \\\\")
 
@@ -529,13 +529,13 @@ armator=Osoba(), logo=False, jezyk="pl"):
     """)
     for i in range(6):
         if len(zaloga)>i:
-            print(i+1, "&", zaloga[i].imie_i_nazwisko, "&", zaloga[i].stopien_zeglarski, "&",
-            (zaloga[i].funkcja if "."*27!=zaloga[i].funkcja else ""), "&", end="")
+            print(i+1, "&\\texttt{", zaloga[i].imie_i_nazwisko, "}&\\texttt{", zaloga[i].stopien_zeglarski, "}&\\texttt{",
+            (zaloga[i].funkcja if "."*15!=zaloga[i].funkcja else ""), "}&", end="")
         else:
             print("&&&&", end="")
         if len(zaloga)>i+6:
-            print(i+7, "&", zaloga[i+6].imie_i_nazwisko, "&", zaloga[i+6].stopien_zeglarski, "&",
-            (zaloga[i+6].funkcja if "."*27!=zaloga[i+6].funkcja else ""), end="")
+            print(i+7, "&\\texttt{", zaloga[i+6].imie_i_nazwisko, "}&\\texttt{", zaloga[i+6].stopien_zeglarski, "}&\\texttt{",
+            (zaloga[i+6].funkcja if "."*15!=zaloga[i+6].funkcja else ""), end="}")
         else:
             print("&&&", end="")
         print("""\\\\
@@ -551,7 +551,7 @@ armator=Osoba(), logo=False, jezyk="pl"):
     tmp=uwagi_kapitana.split("\n")
     for i in range(2):
         if i<len(tmp):
-            print("\\textit{"+str(tmp[i])+"}\\dotfill \\\\")
+            print("\\texttt{"+str(tmp[i])+"}\\dotfill \\\\")
         else:
             print(".\\dotfill \\\\")
 
@@ -564,8 +564,8 @@ armator=Osoba(), logo=False, jezyk="pl"):
     print("\\section*{"+slownik("INFORMACJE O ARMATORZE", jezyk)+"""}
 
 \\begin{tabularx}{\\textwidth}{X X}
-"""+slownik("imię i nazwisko", jezyk)+"/"+slownik("nazwa", jezyk)+": \\textit{"+str(armator.imie_i_nazwisko)+"""} \\\\
-"""+slownik("nr telefonu", jezyk)+": \\textit{"+str(armator.nr_telefonu)+"} & e-mail: \\textit{"
+"""+slownik("imię i nazwisko", jezyk)+"/"+slownik("nazwa", jezyk)+": \\texttt{"+str(armator.imie_i_nazwisko)+"""} \\\\
+"""+slownik("nr telefonu", jezyk)+": \\texttt{"+str(armator.nr_telefonu)+"} & e-mail: \\texttt{"
 +str(armator.adres_email)+"""}\\\\
 \\\\\\\\
 ...................................... & ......................................\\\\
