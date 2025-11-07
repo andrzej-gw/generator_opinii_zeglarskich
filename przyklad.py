@@ -5,12 +5,12 @@ OpiniaKapitana, Osoba, wypisz_karte_rejsu, wypisz_naglowek, wypisz_opinie, wypis
 #dane zalogi mozna wziac np. z arkusza i odpowiednio sformatowac
 DANE_ZALOGI = """Jan Kowalski	ISNS	654345643	jan.kowalski@op.pl	żeglarz jachtowy	PU/43543	załoga
 Bogdan Brzozowski		753456432	bogbrz3030@gmail.com	JSM	PU/32345	I Oficer
-Miłosz Piotrkowski	WNE	345622234	milosz.piotrkowski@gmail.com	żeglarz jachtowy	PU/23453	II Oficer
+Ignacy Hofmokl-Ostrowski	WNE	345622234	milosz.piotrkowski@gmail.com	żeglarz jachtowy	PU/23453	II Oficer
 Bożena Zbroch	Wydział Fizyki	645234566	bozena.zbroch.a@gmail.com	żeglarz jachtowy	PU/34522	załoga
 Karolina Czajkowska	Fuw	453654333	ka.czajkowska@student.uw.edu.pl	Jakieś tam mam	PU/75435	III Oficer
 Paweł Stępiński	MISMAP (matematyka)	544334323	pawel.p.stepinski@gmail.com	żeglarz jachtowy	PU/23345	załoga
 Julia Kostek	Wdib	453643132	juliakostek@wp.pl	brak	brak	załoga
-Bartosz Frankowski	WPiA	+48123432234	ba.frankowski@student.uw.edu.pl	żeglarz jachtowy	 	załoga"""
+Bartosz Frankowski	WPiA	+48123432234	ba.frankowski@student.uw.edu.pl	żeglarz jachtowy	 	"""
 DANE_ZALOGI = DANE_ZALOGI.split('\n')
 for i, dana in enumerate(DANE_ZALOGI):
     DANE_ZALOGI[i] = dana.split("\t")
