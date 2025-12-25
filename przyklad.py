@@ -7,10 +7,15 @@ DANE_ZALOGI = """Jan Kowalski	ISNS	654345643	jan.kowalski@op.pl	żeglarz jachtow
 Bogdan Brzozowski		753456432	bogbrz3030@gmail.com	JSM	PU/32345	I Oficer
 Ignacy Hofmokl-Ostrowski	WNE	345622234	milosz.piotrkowski@gmail.com	żeglarz jachtowy	PU/23453	II Oficer
 Bożena Zbroch	Wydział Fizyki	645234566	bozena.zbroch.a@gmail.com	żeglarz jachtowy	PU/34522	załoga
-Karolina Czajkowska	Fuw	453654333	ka.czajkowska@student.uw.edu.pl	Jakieś tam mam	PU/75435	III Oficer
-Paweł Stępiński	MISMAP (matematyka)	544334323	pawel.p.stepinski@gmail.com	żeglarz jachtowy	PU/23345	załoga
-Julia Kostek	Wdib	453643132	juliakostek@wp.pl	brak	brak	załoga
-Bartosz Frankowski	WPiA	+48123432234	ba.frankowski@student.uw.edu.pl	żeglarz jachtowy	 	"""
+Karolina Czajkowska	Fuw	453654333	emailna25znakow@gmail.com	Jakieś tam mam	PU/75435	III Oficer
+Paweł Stępiński	MISMAP (matematyka)	544334323	dlugiemailna30znakow@gmail.com	żeglarz jachtowy	PU/23345	załoga
+Julia Kostek	Wdib	453643132	dlugi-email-na-33znakow@gmail.com	brak	brak	załoga
+Bartosz Frankowski	WPiA	+48123432234	bardzodlugimailna35znakow@gmail.com	żeglarz jachtowy	 	
+Bartosz Dlugasiński	WPiA	+48123432234	bardzo-dlugi-mail-na-39znakow@gmail.com	żeglarz jachtowy	 	
+Bartosz Bardzo-Dlugasiński	WPiA	+48123432234	baardzo-dlugi-mail-na-40znakow@gmail.com	żeglarz jachtowy	 	"""
+
+DANE_ZALOGI = DANE_ZALOGI.replace("_", r"\_")
+
 DANE_ZALOGI = DANE_ZALOGI.split('\n')
 for i, dana in enumerate(DANE_ZALOGI):
     DANE_ZALOGI[i] = dana.split("\t")
